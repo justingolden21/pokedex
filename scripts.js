@@ -8,8 +8,9 @@ let url = new URL(window.location.href);
 let q = url.searchParams.get('q');
 if(!q) q='bulbasaur';
 q = q.replace(': ', '-'); // just for "Type: Null"
+q = q.toLowerCase();
 console.log(q);
-setURLParam(q.toLowerCase() );
+setURLParam(q);
 
 $('#search-form').submit( (evt)=> {
 	setURLParam($('#search-input').val() );
