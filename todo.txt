@@ -10,6 +10,7 @@ instead of fetching the pokemon in evolution chain (and in future in ability/egg
 ==== TODO ====
 
 egg group modals
+display for showing all pokemon at once, user can scroll through. pagination?
 
 ==== TODO MAYBE ====
 
