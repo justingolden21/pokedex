@@ -1,0 +1,25 @@
+==== BUGS ====
+
+evolution order is async and can be out of order (middle evolution rendering last etc)
+
+==== IDEAS ====
+
+instead of fetching the pokemon in evolution chain (and in future in ability/egg groups),
+	we only need the ID, which we can get by finding the indexOf the name in the pokemon list array
+
+==== TODO ====
+
+egg group modals
+
+==== TODO MAYBE ====
+
+split into tabs for basics, damage, evolution, moves
+modal for abilities/egg groups shows all pokemon of that ability/egg group
+show how pokemon evolves, or at least lvl/item/other
+search pokemon by type/click on types and open modal with those pokemon
+
+==== TODO CAN'T ====
+
+missing sword/shield pokemon in pokeapi... also needs meltan, regionals
+move-learn-method? goes by gen and API doesn't have gen 8...
+show move type next to move preview? needs separate API call for each one...

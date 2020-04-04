@@ -1,0 +1,131 @@
+::-moz-selection {
+	background: #e6e6e6;
+}
+::selection {
+	background: #e6e6e6;
+}
+
+img {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	-webkit-user-drag: none;
+	-khtml-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+	-ms-user-drag: none;
+	user-drag: none;
+}
+
+.stat-bar {
+	background-color: #333;
+	height: 16px;
+	border: 2px solid #ccc;
+}
+
+.gender-bar {
+	height: 12px;
+	border: 1px solid #ccc;
+	width: 200px;
+	display: inline-block;
+}
+.gender-bar.female {
+	background-color: #c66;
+	border-right: 0;
+}
+.gender-bar.male {
+	background-color: #66c;
+}
+
+hr {
+	border: 1px solid #ccc;
+}
+
+#header-div h3 {
+	letter-spacing: 1px;
+}
+
+.pokemon-img {
+	width: 120px;
+}
+
+.container {
+	margin-top: 0px;
+	margin-bottom: 20px;
+	padding: 20px;
+	background-color: #fff;
+	border: 2px solid #ccc;
+}
+body {
+	/*background-color: #e6e6e6;*/
+	background-color: #933;
+}
+
+nav {
+	background-color: #e6e6e6;
+	border-bottom: 2px solid #ccc;
+}
+
+span.type {
+	border-radius: 0;
+	font-weight: bold;
+}
+
+#search-input {
+	background-color: transparent;
+	border-color: #666;
+}
+
+#search-input, #search-btn {
+	border-radius: 0px;
+}
+
+.move, .ability, .evolution-pokemon {
+	cursor: pointer;
+	padding: 8px;
+	/*border: 1px solid #ccc;*/
+}
+
+.move:hover, .ability:hover, .evolution-pokemon:hover {
+	background-color: #ccc;
+}
+
+.modal-content {
+	border-radius: 0;
+	border: 1px solid #ccc;
+}
+
+a {
+	color: #333;
+}
+
+/*typeahead*/
+.tt-menu {
+	/*margin-left: 0px;*/
+}
+.tt-suggestion {
+	background-color: #333;
+	color: #fff;
+	padding: 10px;
+	cursor: default;
+}
+.tt-highlight {
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+.tt-suggestion:hover, .tt-highlight, .tt-cursor {
+	background-color: #666 !important;
+}
+
+@media(min-width: 768px) {
+	.mobile-only {
+		display: none;
+	}
+	.container {
+		margin-top: 20px;
+	}
+}
