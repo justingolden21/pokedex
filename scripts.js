@@ -5,9 +5,9 @@ const setURLParam = (name) => history.replaceState({}, '', '?q=' + name);
 
 //get url params
 let url = new URL(window.location.href);
-let q = url.searchParams.get('q').toLowerCase();
+let q = url.searchParams.get('q');
+if(!q) q='bulbasaur';
 q = q.replace(': ', '-'); // just for "Type: Null"
-if(q=='') q='bulbasaur';
 console.log(q);
 setURLParam(q.toLowerCase() );
 
