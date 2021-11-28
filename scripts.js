@@ -151,11 +151,12 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
             let currentStat = data.stats[stat].base_stat;
             totalStats += currentStat;
 			$('#'+data.stats[stat].stat.name+'-div').append('' + formatStr(data.stats[stat].stat.name) + ': ' + currentStat + '');
-			$('#'+data.stats[stat].stat.name+'-div').append('<div class="stat-bar" style="width:' + 1.5*currentStat + 'px"></div>');
+			$('#'+data.stats[stat].stat.name+'-div').append('<div id="stat'+stat+'" class="stat-bar" style="width:0"></div>');
 			if(data.stats[stat].effort!=0) {
 				EVStat = formatStr(data.stats[stat].stat.name);
 				EVVal = data.stats[stat].effort;
 			}
+            $(`#stat${stat}`).animate({'width': 1.5*currentStat+'px'});
 		}
 		$('#stats-div').append('<br>Sum: ' + totalStats);
 		$('#stats-div').append('<br><br>EVs Gained: ' + EVVal + ' ' + EVStat + '<br><hr class="mobile-only">');
