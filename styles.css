@@ -23,13 +23,12 @@ img {
 
 .stat-bar {
 	background-color: #333;
+    border-bottom-right-radius: 16px;
 	height: 16px;
-	border: 2px solid #ccc;
 }
 
 .gender-bar {
 	height: 12px;
-	border: 1px solid #ccc;
 	width: 200px;
 	display: inline-block;
 }
@@ -42,7 +41,7 @@ img {
 }
 
 hr {
-	border: 1px solid #ccc;
+    border-color: #ccc;
 }
 
 #header-div h3 {
@@ -55,10 +54,9 @@ hr {
 
 .container {
 	margin-top: 0px;
-	margin-bottom: 20px;
-	padding: 20px;
+	margin-bottom: 32px;
+	padding: 32px;
 	background-color: #fff;
-	border: 2px solid #ccc;
 }
 body {
 	/*background-color: #e6e6e6;*/
@@ -67,7 +65,6 @@ body {
 
 nav {
 	background-color: #e6e6e6;
-	border-bottom: 2px solid #ccc;
 }
 
 span.type {
@@ -75,19 +72,19 @@ span.type {
 	font-weight: bold;
 }
 
-#search-input {
-	background-color: transparent;
-	border-color: #666;
+#search-input, #search-btn {
+	background-color: white;
+    border-radius: 0;
+    border: 1px solid white;
 }
 
-#search-input, #search-btn {
-	border-radius: 0px;
+#search-btn:hover {
+    background: green;
 }
 
 .move, .ability, .evolution-pokemon {
 	cursor: pointer;
 	padding: 8px;
-	/*border: 1px solid #ccc;*/
 }
 
 .move:hover, .ability:hover, .evolution-pokemon:hover {
@@ -96,7 +93,7 @@ span.type {
 
 .modal-content {
 	border-radius: 0;
-	border: 1px solid #ccc;
+    border: none;
 }
 
 a {
@@ -126,6 +123,6 @@ a {
 		display: none;
 	}
 	.container {
-		margin-top: 20px;
+		margin-top: 32px;
 	}
 }
