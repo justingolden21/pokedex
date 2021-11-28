@@ -146,15 +146,19 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
 
 		let EVStat = '';
 		let EVVal = 0;
+        let totalStats = 0;
 		for(stat in data.stats) {
-			$('#'+data.stats[stat].stat.name+'-div').append('' + formatStr(data.stats[stat].stat.name) + ': ' + data.stats[stat].base_stat + '');
-			$('#'+data.stats[stat].stat.name+'-div').append('<div class="stat-bar" style="width:' + 1.5*data.stats[stat].base_stat + 'px"></div>');
+            let currentStat = data.stats[stat].base_stat;
+            totalStats += currentStat;
+			$('#'+data.stats[stat].stat.name+'-div').append('' + formatStr(data.stats[stat].stat.name) + ': ' + currentStat + '');
+			$('#'+data.stats[stat].stat.name+'-div').append('<div class="stat-bar" style="width:' + 1.5*currentStat + 'px"></div>');
 			if(data.stats[stat].effort!=0) {
 				EVStat = formatStr(data.stats[stat].stat.name);
 				EVVal = data.stats[stat].effort;
 			}
 		}
-		$('#stats-div').append('<br>EVs Gained: ' + EVVal + ' ' + EVStat + '<br><hr class="mobile-only">');
+		$('#stats-div').append('<br>Sum: ' + totalStats);
+		$('#stats-div').append('<br><br>EVs Gained: ' + EVVal + ' ' + EVStat + '<br><hr class="mobile-only">');
 
 		$('#ability-div').append('Abilities: <ul>');
 		for(ability in data.abilities) {
