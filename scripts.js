@@ -106,7 +106,7 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
 			if(data.flavor_text_entries[idx].language.name=='en')
 				break;
 		}
-		$('#flavor-div').append(data.flavor_text_entries[idx].flavor_text + '<br><br>');
+		$('#flavor-div').append(data.flavor_text_entries[idx].flavor_text.replace('',' ') + '<br><br>');
 
 	});
 
