@@ -11,13 +11,23 @@ instead of fetching the pokemon in evolution chain (and in future in ability/egg
 
 egg group modals
 display for showing all pokemon at once, user can scroll through. pagination?
+add page to history.pushState stack for forward/back navigation
+show move types, damage, learn method, etc
 
 ==== TODO MAYBE ====
 
-split into tabs for basics, damage, evolution, moves
+split into tabs for basics, damage, evolution, moves, use '#' in url
 modal for abilities/egg groups shows all pokemon of that ability/egg group
 show how pokemon evolves, or at least lvl/item/other
 search pokemon by type/click on types and open modal with those pokemon
+simple mode only show stat bars and top info
+local storage for previous pokemon name and simple mode setting
+night mode, fullscreen, contact btn
+
+==== TODO TECH ====
+
+ditch bootstrap and jquery, use umbrella, lighten page
+make it a pwa? offline cache pokemon on load, btn to clear cache and toggle to not cache pokemon
 
 ==== TODO CAN'T ====
 
