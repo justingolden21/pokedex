@@ -76,7 +76,7 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
                     evoData = evoData['evolves_to'][0];
                 } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
 
-                $('#evolution-div-container').prepend('<hr>Evolution:<br><br>');
+                $('#evolution-div-container').prepend('<hr><h3>Evolution</h3>');
 
                 for(let evo of evoChain) {
 					fetch('https://pokeapi.co/api/v2/pokemon/' + evo.species_name)
@@ -144,7 +144,7 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
 		checkLoadCount();
 		console.log(data);
 
-		$('#damage-taken-div-container').prepend('<hr>Damage Taken:<br><br>');
+		$('#damage-taken-div-container').prepend('<hr><h3>Damage Taken</h3>');
 		for(type of TYPES) {
 			let dmg = getDamageTaken(type, data.types);
 			let typeHTML = '<span class="type ' + type + '"></span> x' + dmg + '<br>';
@@ -159,7 +159,7 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
 			}
 		}
 
-		$('#moves-div-container').prepend('<hr>Moves:<br><br>');
+		$('#moves-div-container').prepend('<hr><h3>Moves</h3>');
 		for(move of data.moves) {
 			let moveName = formatStr(move.move.name);
 			$('#moves-div').append('<div onclick="openMove(\'' + moveName + '\',\'' + move.move.url + '\')" class="move col-6 col-sm-4 col-md-3 col-lg-2">' + moveName + '</div>');
