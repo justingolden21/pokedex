@@ -55,17 +55,38 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
 			.then(res => res.json() )
 			.then(data => {
 				console.log(data);
-				let speciesNames = [data.chain.species.name];
-				for(let i=0; i<data.chain.evolves_to.length; i++) {
-					speciesNames.push(data.chain.evolves_to[i].species.name);
-					for(let j=0; j<data.chain.evolves_to[i].evolves_to.length; j++) {
-						speciesNames.push(data.chain.evolves_to[i].evolves_to[j].species.name);
-					}
-				}
-				console.log(speciesNames);
-				$('#evolution-div-container').prepend('<hr>Evolution:<br><br>')
-				for(species of speciesNames) {
-					fetch('https://pokeapi.co/api/v2/pokemon/' + species)
+
+
+
+
+                let evoChain = [];
+                let evoData = data.chain;
+                do {
+                    let evoDetails = evoData['evolution_details'][0];
+
+                    let tmp = {"species_name": evoData.species.name};
+                    if(evoDetails) {
+                        for(let key in evoDetails) {
+                            console.log(key);
+                            console.log(evoDetails[key]);
+                            if(evoDetails[key]) {
+                                tmp[key] = evoDetails[key];
+                            }
+                        }    
+                    }
+
+                    evoChain.push(tmp);
+
+                    evoData = evoData['evolves_to'][0];
+                } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
+                console.log(evoChain);
+
+
+
+                $('#evolution-div-container').prepend('<hr>Evolution:<br><br>');
+
+                for(let evo of evoChain) {
+					fetch('https://pokeapi.co/api/v2/pokemon/' + evo.species_name)
 						.then(res => res.json() )
 						.then(data => {
 							checkLoadCount();
@@ -76,9 +97,82 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
 								'<img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + padThreeZeroes(data.id) + '.png">' +
 								'</div>'
 							);
+
+                            let evoHTML = '';
+                            for(let key in evo) {
+                                if(key !== 'species_name') {
+                                    evoHTML += '<p>';
+                                    if(typeof evo[key] !== 'object') {
+                                        evoHTML += formatStr(key) + ': ' + formatStr(evo[key].toString());
+                                    } else {
+                                        evoHTML += formatStr(key) + ': ' + formatStr(evo[key].name);
+                                    }
+                                    evoHTML += '</p>';
+                                }
+                            }
+                            $('#evolution-div').append(evoHTML);
+
 						});
+                    
+
 				}
+
+
+
+                // let evolutionData = [];
+                // evolutionData.push(data.chain.evolution_details[0]);
+
+                // let speciesNames = [data.chain.species.name];
+				// for(let i=0; i<data.chain.evolves_to.length; i++) {
+                //     evolutionData.push(data.chain.evolves_to[i].evolution_details[0]);
+
+                //     speciesNames.push(data.chain.evolves_to[i].species.name);
+				// 	for(let j=0; j<data.chain.evolves_to[i].evolves_to.length; j++) {
+                //         evolutionData.push(data.chain.evolves_to[i].evolves_to[j].evolution_details[0]);
+                        
+                //         speciesNames.push(data.chain.evolves_to[i].evolves_to[j].species.name);
+				// 	}
+				// }
+				// console.log(speciesNames);
+
 				
+				// for(species of speciesNames) {
+				// 	fetch('https://pokeapi.co/api/v2/pokemon/' + species)
+				// 		.then(res => res.json() )
+				// 		.then(data => {
+				// 			checkLoadCount();
+				// 			console.log(data);
+				// 			$('#evolution-div').append(
+				// 				'<div class="evolution-pokemon" onclick="searchPokemon(\'' + data.name + '\')">' +
+				// 				'#' + data.id + ' ' + capitalize(data.name) +
+				// 				'<img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + padThreeZeroes(data.id) + '.png">' +
+				// 				'</div>'
+				// 			);
+				// 		});
+				// }
+
+                // let evolutionInfo = '';
+                // for(let i=0; i<evolutionData.length; i++) {
+                //     if(evolutionData[i]) {
+                //         for(key in evolutionData[i]) {
+                //             if(evolutionData[i][key]) {
+                //                 if(typeof evolutionData[i][key] === 'string') {
+                //                     evolutionInfo += formatStr(key) + ': ' + formatStr(evolutionData[i][key]) + '<br>';
+                //                 } else if(typeof evolutionData[i][key] === 'object') {
+                //                     evolutionInfo += formatStr(key) + ': ' + formatStr(evolutionData[i][key].name) + '<br>';
+                //                 }
+                //             }
+                //         }
+                //         evolutionInfo += '<br><br>';
+                //     }
+                //     evolutionInfo += '<br><br>';
+                // }
+                // $('#evolution-div').append(evolutionInfo);
+
+
+
+
+
 			});
 
 		$('#info-div-2').append('Base Happiness: ' + data.base_happiness + '<small>/255</small><br>');
