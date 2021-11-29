@@ -9,7 +9,6 @@ instead of fetching the pokemon in evolution chain (and in future in ability/egg
 
 ==== TODO ====
 
-fetch pokemon evolution in correct order
 egg group modals
 display for showing all pokemon at once, user can scroll through. pagination?
 add page to history.pushState stack for forward/back navigation

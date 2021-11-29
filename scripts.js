@@ -76,8 +76,8 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
 
                 $('#evolution-div-container').prepend('<hr><h3>Evolution</h3>');
 
-                for(let evo of evoChain) {
-                    // TODO fetch pokemon evolution in correct order
+                for(let idx in evoChain) {
+                    const evo = evoChain[idx];
 					fetch('https://pokeapi.co/api/v2/pokemon/' + evo.species_name)
 						.then(res => res.json() )
 						.then(data => {
@@ -97,7 +97,7 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
                                 }
                             }
 
-                            $('#evolution-div').append(
+                            $('#evolution-' + idx).append(
 								'<div class="row border-bottom">' +
                                     '<div class="evolution-pokemon col-6" onclick="searchPokemon(\'' + data.name + '\')">' +
                                         '#' + data.id + ' ' + capitalize(data.name) +
@@ -167,6 +167,7 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
 
 		$('#moves-div-container').prepend('<hr><h3>Moves</h3>');
 		for(move of data.moves) {
+            console.log(move.version_group_details[0].level_learned_at)
 			let moveName = formatStr(move.move.name);
 			$('#moves-div').append('<div onclick="openMove(\'' + moveName + '\',\'' + move.move.url + '\')" class="move col-6 col-sm-4 col-md-3 col-lg-2">' + moveName + '</div>');
 		}
