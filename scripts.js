@@ -64,8 +64,6 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
                     let tmp = {"species_name": evoData.species.name};
                     if(evoDetails) {
                         for(let key in evoDetails) {
-                            console.log(key);
-                            console.log(evoDetails[key]);
                             if(evoDetails[key]) {
                                 tmp[key] = evoDetails[key];
                             }
@@ -143,6 +141,8 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
 	.then(data => {
 		checkLoadCount();
 		console.log(data);
+
+        document.title = 'Pokedex - ' + capitalize(data.name);
 
 		$('#damage-taken-div-container').prepend('<hr><h3>Damage Taken</h3>');
 		for(type of TYPES) {
