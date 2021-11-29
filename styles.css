@@ -21,6 +21,19 @@ img {
 	user-drag: none;
 }
 
+li {
+    list-style: none;
+}
+li:before {
+    margin: 4px;
+    content: '> ';
+
+}
+
+.type {
+    border: 0 !important;
+}
+
 .stat-bar {
     transition: width 0.25s ease-out;
 	background-color: #333;
