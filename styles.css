@@ -95,7 +95,7 @@ span.type {
 }
 
 #search-btn:hover {
-    background: green;
+    background: #333;
 }
 
 .move, .ability, .evolution-pokemon {

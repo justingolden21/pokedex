@@ -27,6 +27,7 @@ night mode, fullscreen, contact btn
 ==== TODO TECH ====
 
 ditch bootstrap and jquery, use umbrella, lighten page
+replace fontawesome with heroicons (search, loader)
 make it a pwa? offline cache pokemon on load, btn to clear cache and toggle to not cache pokemon
 
 ==== TODO CAN'T ====
