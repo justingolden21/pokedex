@@ -77,6 +77,7 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
                 $('#evolution-div-container').prepend('<hr><h3>Evolution</h3>');
 
                 for(let evo of evoChain) {
+                    // TODO fetch pokemon evolution in correct order
 					fetch('https://pokeapi.co/api/v2/pokemon/' + evo.species_name)
 						.then(res => res.json() )
 						.then(data => {
@@ -97,7 +98,7 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
                             }
 
                             $('#evolution-div').append(
-								'<div class="row">' +
+								'<div class="row border-bottom">' +
                                     '<div class="evolution-pokemon col-6" onclick="searchPokemon(\'' + data.name + '\')">' +
                                         '#' + data.id + ' ' + capitalize(data.name) +
                                         '<img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + padThreeZeroes(data.id) + '.png">' +
