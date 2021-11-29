@@ -99,7 +99,7 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
 
                             $('#evolution-' + idx).append(
 								'<div class="row border-bottom">' +
-                                    '<div class="evolution-pokemon col-6" onclick="searchPokemon(\'' + data.name + '\')">' +
+                                    '<div class="evolution-pokemon col-6" tabindex="0" onclick="searchPokemon(\'' + data.name + '\')">' +
                                         '#' + data.id + ' ' + capitalize(data.name) +
                                         '<img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + padThreeZeroes(data.id) + '.png">' +
                                     '</div><div class="col-6">' +
@@ -169,7 +169,7 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
 		for(move of data.moves) {
             console.log(move.version_group_details[0].level_learned_at)
 			let moveName = formatStr(move.move.name);
-			$('#moves-div').append('<div onclick="openMove(\'' + moveName + '\',\'' + move.move.url + '\')" class="move col-6 col-sm-4 col-md-3 col-lg-2">' + moveName + '</div>');
+			$('#moves-div').append('<div tabindex="0" onclick="openMove(\'' + moveName + '\',\'' + move.move.url + '\')" class="move col-6 col-sm-4 col-md-3 col-lg-2">' + moveName + '</div>');
 		}
 
 		$('#img-div').append('<img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + padThreeZeroes(data.id) + '.png">');
@@ -200,7 +200,7 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
 		for(ability in data.abilities) {
 			let abilityName = formatStr(data.abilities[ability].ability.name);
 			$('#ability-div').append(
-				'<li onclick="openAbility(\'' + abilityName + '\',\'' + data.abilities[ability].ability.url + '\')" class="ability">' + 
+				'<li tabindex="0" onclick="openAbility(\'' + abilityName + '\',\'' + data.abilities[ability].ability.url + '\')" class="ability">' + 
 				abilityName + (data.abilities[ability].is_hidden ? ' (hidden)' : '') + '</li>'
 			);
 		}
