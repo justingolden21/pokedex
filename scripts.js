@@ -82,12 +82,6 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
 						.then(data => {
 							checkLoadCount();
 							console.log(data);
-							$('#evolution-div').append(
-								'<div class="evolution-pokemon" onclick="searchPokemon(\'' + data.name + '\')">' +
-								'#' + data.id + ' ' + capitalize(data.name) +
-								'<img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + padThreeZeroes(data.id) + '.png">' +
-								'</div>'
-							);
 
                             let evoHTML = '';
                             for(let key in evo) {
@@ -101,7 +95,18 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
                                     evoHTML += '</p>';
                                 }
                             }
-                            $('#evolution-div').append(evoHTML);
+
+                            $('#evolution-div').append(
+								'<div class="row">' +
+                                    '<div class="evolution-pokemon col-6" onclick="searchPokemon(\'' + data.name + '\')">' +
+                                        '#' + data.id + ' ' + capitalize(data.name) +
+                                        '<img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + padThreeZeroes(data.id) + '.png">' +
+                                    '</div><div class="col-6">' +
+                                        evoHTML +
+                                    '</div>' +
+								'</div>'
+							);
+
 						});
 				}
 
