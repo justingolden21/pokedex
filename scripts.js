@@ -1,4 +1,21 @@
 let pokemonNames;
+
+function sharePokemonLink(name) {
+    if (navigator.share) {
+        navigator
+            .share({
+                title: 'Pokedex - ' + name,
+                url: window.location.href,
+            })
+            .then(() => {
+                console.log('Share successful');
+            })
+            .catch(console.error);
+    } else {
+        console.log('Share not supported');
+    }
+}
+
 $( ()=> {
 
 const setURLParam = (name) => history.replaceState({}, '', '?q=' + name);
@@ -169,7 +186,7 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
 
 		$('#moves-div-container').prepend('<hr><h3>Moves</h3>');
 		for(move of data.moves) {
-            console.log(move.version_group_details[0].level_learned_at)
+            // console.log(move.version_group_details[0].level_learned_at)
 			let moveName = formatStr(move.move.name);
 			$('#moves-div').append('<div tabindex="0" onclick="openMove(\'' + moveName + '\',\'' + move.move.url + '\')" class="move col-6 col-sm-4 col-md-3 col-lg-2">' + moveName + '</div>');
 		}
@@ -180,6 +197,8 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
 		for(let i=0; i<data.types.length; i++) {
 			$('#header-div').append('<span class="type ' + data.types[i].type.name + '"></span> ');
 		}
+
+        $('#header-div').append(`<br><br><button class="btn btn-dark rounded-0" onclick="sharePokemonLink('${data.name}')">Share</button>`)
 
 		let EVStat = '';
 		let EVVal = 0;
