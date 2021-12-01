@@ -124,7 +124,7 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
                             $('#evolution-' + idx).append(
 								'<div class="row border-bottom">' +
                                     '<div class="evolution-pokemon col-6 row" tabindex="0" onclick="searchPokemon(\'' + data.name + '\')">' +
-                                        '<div class="col-sm"> <p>#' + data.id + ' ' + capitalize(data.name) + '</p><br>' + typeHTML +
+                                        '<div class="col-sm"> <p>#' + data.id.toString().padStart(3, '0') + ' ' + capitalize(data.name) + '</p><br>' + typeHTML +
                                         '</div><div class="col-sm"><img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + padThreeZeroes(data.id) + '.png"></div>' +
                                     '</div><div class="col-6">' +
                                         evoHTML +
@@ -197,7 +197,7 @@ fetch('https://pokeapi.co/api/v2/pokemon/' + q)
 		}
 
 		$('#img-div').append('<img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + padThreeZeroes(data.id) + '.png">');
-		$('#header-div').append('<h3><small>#' + data.id + ' &mdash; </small> ' + capitalize(data.name) + '</h3>');
+		$('#header-div').append('<h3><small>#' + data.id.toString().padStart(3, '0') + ' &mdash; </small> ' + capitalize(data.name) + '</h3>');
 
 		for(let i=0; i<data.types.length; i++) {
 			$('#header-div').append('<span class="type ' + data.types[i].type.name + '"></span> ');
