@@ -74,12 +74,14 @@ h3 {
 	background-color: #fff;
 }
 body {
-	/*background-color: #e6e6e6;*/
-	background-color: #933;
+	background-color: #e6e6e6;
+	/* background-color: #933; */
 }
 
 nav {
-	background-color: #e6e6e6;
+	/* background-color: #e6e6e6; */
+	color: #fff;
+	background-color: #933;
 }
 
 span.type {
@@ -112,8 +114,9 @@ span.type {
 	border: none;
 }
 
-a {
-	color: #333;
+a,
+a:hover {
+	color: #fff;
 }
 
 /*typeahead*/
