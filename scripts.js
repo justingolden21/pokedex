@@ -393,7 +393,10 @@ function openAbility(abilityName, abilityURL) {
 		.then((res) => res.json())
 		.then((data) => {
 			console.log(data);
-			$('.modal-body').html(data.effect_entries[0].effect);
+			const enDescription = data.effect_entries.filter(
+				(x) => x.language.name === 'en'
+			)[0].effect;
+			$('.modal-body').html(enDescription);
 		});
 }
 
