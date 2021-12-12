@@ -26,7 +26,6 @@ li {
 }
 li:before {
 	margin: 4px;
-	content: '> ';
 }
 
 .type {
@@ -74,11 +73,9 @@ h3 {
 }
 body {
 	background-color: #e6e6e6;
-	/* background-color: #933; */
 }
 
 nav {
-	/* background-color: #e6e6e6; */
 	color: #fff;
 	background-color: #933;
 }
@@ -100,6 +97,8 @@ span.type {
 }
 
 .clickable-text {
+	color: #666;
+	font-weight: bold;
 	cursor: pointer;
 	padding: 8px;
 }
