@@ -119,6 +119,9 @@ span.type {
 	border-radius: 0;
 	border: none;
 }
+.larger-text {
+	font-size: 125%;
+}
 
 a,
 a:hover {

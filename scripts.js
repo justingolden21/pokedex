@@ -370,14 +370,14 @@ function openMove(moveName, moveURL) {
 					data.damage_class.name +
 					'.png">' +
 					capitalize(data.damage_class.name) +
-					'<br><br><b>Power:</b> ' +
+					'<div class="larger-text"><br><b>Power:</b> ' +
 					checkNull(data.power) +
 					'<br><b>Accuracy:</b> ' +
 					checkNull(data.accuracy) +
-					'%' +
+					(checkNull(data.accuracy) == 'N/A' ? '' : '%') +
 					'<br><b>PP:</b> ' +
 					data.pp +
-					'<br><br><b>Priority:</b> ' +
+					'</div><br><b>Priority:</b> ' +
 					data.priority +
 					// '<br>Stat Changes: ' + data.stat_changes +
 					'<br><b>Target:</b> ' +
