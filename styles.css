@@ -98,16 +98,12 @@ span.type {
 	background: #333;
 }
 
-.move,
-.ability,
-.evolution-pokemon {
+.clickable-text {
 	cursor: pointer;
 	padding: 8px;
 }
 
-.move:hover,
-.ability:hover,
-.evolution-pokemon:hover {
+.clickable-text:hover {
 	background-color: #ccc;
 }
 

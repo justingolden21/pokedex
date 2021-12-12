@@ -140,7 +140,7 @@ $(() => {
 
 								$('#evolution-' + idx).append(
 									'<div class="row border-bottom">' +
-										'<div class="evolution-pokemon col-6 row" tabindex="0" onclick="searchPokemon(\'' +
+										'<div class="clickable-text col-6 row" tabindex="0" onclick="searchPokemon(\'' +
 										data.name +
 										'\')">' +
 										'<div class="col-sm"> <p>#' +
@@ -204,7 +204,13 @@ $(() => {
 			$('#egg-group-div').append('Egg Groups: <ul>');
 			for (let i = 0; i < data.egg_groups.length; i++) {
 				$('#egg-group-div').append(
-					'<li>' + capitalize(data.egg_groups[i].name) + '</li>'
+					'<li tabindex="0" onclick="openEggGroup(\'' +
+						data.egg_groups[i].name +
+						"','" +
+						data.egg_groups[i].url +
+						'\')" class="clickable-text">' +
+						capitalize(data.egg_groups[i].name) +
+						'</li>'
 				);
 			}
 			$('#egg-group-div').append('</ul>');
@@ -252,7 +258,7 @@ $(() => {
 						moveName +
 						"','" +
 						move.move.url +
-						'\')" class="move col-6 col-sm-4 col-md-3 col-lg-2">' +
+						'\')" class="clickable-text col-6 col-sm-4 col-md-3 col-lg-2">' +
 						moveName +
 						'</div>'
 				);
@@ -326,7 +332,7 @@ $(() => {
 						abilityName +
 						"','" +
 						data.abilities[ability].ability.url +
-						'\')" class="ability">' +
+						'\')" class="clickable-text">' +
 						abilityName +
 						(data.abilities[ability].is_hidden ? ' (hidden)' : '') +
 						'</li>'
@@ -397,6 +403,33 @@ function openAbility(abilityName, abilityURL) {
 				(x) => x.language.name === 'en'
 			)[0].effect;
 			$('.modal-body').html(enDescription);
+		});
+}
+
+function openEggGroup(eggGroupName, eggGroupURL) {
+	$('.modal-title').html(capitalize(eggGroupName));
+	$('.modal-body').html(
+		'<div class="text-center"><i class="fas fa-spinner fa-2x fa-spin"></i></div>'
+	);
+	$('.modal').modal('show');
+
+	fetch(eggGroupURL)
+		.then((res) => res.json())
+		.then((data) => {
+			console.log(data);
+			console.log(data.pokemon_species);
+			let html = '';
+			for (let i = 0; i < data.pokemon_species.length; i++) {
+				console.log();
+				const name = capitalize(data.pokemon_species[i].name);
+				html +=
+					'<div class="clickable-text" onclick="searchPokemon(\'' +
+					name +
+					'\')">' +
+					name +
+					'</div>';
+			}
+			$('.modal-body').html(html);
 		});
 }
 
