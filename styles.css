@@ -72,7 +72,7 @@ h3 {
 	background-color: #fff;
 }
 body {
-	background-color: #e6e6e6;
+	background-color: #ccc;
 }
 
 nav {
@@ -145,5 +145,29 @@ a:hover {
 	}
 	.main.pokemon-img {
 		width: 240px;
+	}
+
+	/* corners cut */
+
+	.container {
+		position: relative;
+	}
+
+	.container:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		border-bottom: 80px solid #fff;
+		border-left: 80px solid #ccc;
+	}
+
+	.container:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		border-top: 80px solid #ccc;
+		border-left: 80px solid #fff;
 	}
 }
