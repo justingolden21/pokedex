@@ -97,8 +97,7 @@ span.type {
 }
 
 .clickable-text {
-	color: #666;
-	font-weight: bold;
+	font-weight: 500;
 	cursor: pointer;
 	padding: 8px;
 }
