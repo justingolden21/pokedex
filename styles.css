@@ -70,9 +70,18 @@ h3 {
 	margin-bottom: 32px;
 	padding: 32px;
 	background-color: #fff;
+	opacity: 0.9;
+	border-radius: 16px;
 }
 body {
-	background-color: #ccc;
+	background-color: #e6e6e6;
+	background: repeating-linear-gradient(
+		-45deg,
+		#d6d6d6,
+		#d6d6d6 4px,
+		#e6e6e6 4px,
+		#e6e6e6 24px
+	);
 }
 
 nav {
@@ -145,29 +154,5 @@ a:hover {
 	}
 	.main.pokemon-img {
 		width: 240px;
-	}
-
-	/* corners cut */
-
-	.container {
-		position: relative;
-	}
-
-	.container:before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		border-bottom: 80px solid #fff;
-		border-left: 80px solid #ccc;
-	}
-
-	.container:after {
-		content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		border-top: 80px solid #ccc;
-		border-left: 80px solid #fff;
 	}
 }
