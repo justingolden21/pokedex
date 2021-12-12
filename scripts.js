@@ -171,6 +171,9 @@ $(() => {
 					data.capture_rate +
 					'<small>/255</small><br>'
 			);
+			$('#info-div-2').append(
+				'<hr>Growth Rate: ' + formatStr(data.growth_rate.name) + '<br>'
+			);
 
 			// gender is "odds of being female in eighths, -1 for genderless"
 			if (data.gender_rate == -1) {
@@ -190,9 +193,6 @@ $(() => {
 						'% &#9794;'
 				);
 			}
-			$('#info-div-2').append(
-				'<hr>Growth Rate: ' + formatStr(data.growth_rate.name) + '<br>'
-			);
 			$('#info-div-2').append(
 				'<hr>Hatch Steps: ' +
 					255 * (data.hatch_counter + 1) +
