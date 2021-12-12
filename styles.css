@@ -22,22 +22,21 @@ img {
 }
 
 li {
-    list-style: none;
+	list-style: none;
 }
 li:before {
-    margin: 4px;
-    content: '> ';
-
+	margin: 4px;
+	content: '> ';
 }
 
 .type {
-    border: 0 !important;
+	border: 0 !important;
 }
 
 .stat-bar {
-    transition: width 0.25s ease-out;
+	transition: width 0.25s ease-out;
 	background-color: #333;
-    border-bottom-right-radius: 16px;
+	border-bottom-right-radius: 16px;
 	height: 16px;
 }
 
@@ -55,13 +54,13 @@ li:before {
 }
 
 hr {
-    border-color: #eee;
+	border-color: #eee;
 }
 
 h3 {
-    font-weight: lighter;
+	font-weight: lighter;
 	letter-spacing: 1px;
-    margin-bottom: 12px;
+	margin-bottom: 12px;
 }
 
 .pokemon-img {
@@ -88,28 +87,33 @@ span.type {
 	font-weight: bold;
 }
 
-#search-input, #search-btn {
+#search-input,
+#search-btn {
 	background-color: white;
-    border-radius: 0;
-    border: 1px solid white;
+	border-radius: 0;
+	border: 1px solid white;
 }
 
 #search-btn:hover {
-    background: #333;
+	background: #333;
 }
 
-.move, .ability, .evolution-pokemon {
+.move,
+.ability,
+.evolution-pokemon {
 	cursor: pointer;
 	padding: 8px;
 }
 
-.move:hover, .ability:hover, .evolution-pokemon:hover {
+.move:hover,
+.ability:hover,
+.evolution-pokemon:hover {
 	background-color: #ccc;
 }
 
 .modal-content {
 	border-radius: 0;
-    border: none;
+	border: none;
 }
 
 a {
@@ -130,11 +134,13 @@ a {
 	padding-top: 1px;
 	padding-bottom: 1px;
 }
-.tt-suggestion:hover, .tt-highlight, .tt-cursor {
+.tt-suggestion:hover,
+.tt-highlight,
+.tt-cursor {
 	background-color: #666 !important;
 }
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
 	.mobile-only {
 		display: none;
 	}
