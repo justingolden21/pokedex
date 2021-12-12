@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 <style type="text/css">
-.st0{fill:#fff;stroke:#666;stroke-width:2.5;}
-.st1{fill:none;stroke:#666;stroke-width:2.5;}
+.st0{fill:#fff;stroke:#333;stroke-width:2.5;}
+.st1{fill:none;stroke:#333;stroke-width:2.5;}
 .st2{fill:#933;}
-.st3{fill:#666;}
+.st3{fill:#333;}
 </style>
 <circle class="st0" cx="32" cy="32" r="24"/>
 <path class="st3" d="M38.5,28.3L7.4,59.4c-0.8,0.8-2,0.8-2.8,0l0,0c-0.8-0.8-0.8-2,0-2.8l31.1-31.1c0.8-0.8,2-0.8,2.8,0v0C39.3,26.3,39.3,27.5,38.5,28.3z"/>
