@@ -265,7 +265,7 @@ $(() => {
 			}
 
 			$('#img-div').append(
-				'<img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
+				'<img class="main pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
 					padThreeZeroes(data.id) +
 					'.png">'
 			);
