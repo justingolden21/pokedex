@@ -35,7 +35,6 @@ li:before {
 
 .stat-bar {
 	transition: width 0.25s ease-out;
-	background-color: #333;
 	border-bottom-right-radius: 16px;
 	height: 16px;
 }

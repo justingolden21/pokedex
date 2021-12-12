@@ -305,7 +305,9 @@ $(() => {
 				$('#' + data.stats[stat].stat.name + '-div').append(
 					'<div id="stat' +
 						stat +
-						'" class="stat-bar" style="width:0"></div>'
+						'" class="stat-bar" style="width:0; background-color:' +
+						getStatColor(currentStat) +
+						';"></div>'
 				);
 				if (data.stats[stat].effort != 0) {
 					EVStat = formatStr(data.stats[stat].stat.name);
@@ -432,6 +434,11 @@ function openEggGroup(eggGroupName, eggGroupURL) {
 			$('.modal-body').html(html);
 		});
 }
+
+const getStatColor = (stat) => {
+	const n = Math.floor(Math.min(stat * 1.5, 200));
+	return `rgb(${n}, ${n}, ${n})`;
+};
 
 // const formatStr = str => capitalizeEach(str.replace('-',' ').replace('_',' ') )
 const formatStr = (str) =>
