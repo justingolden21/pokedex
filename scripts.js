@@ -161,17 +161,17 @@ $(() => {
 					}
 				});
 
-			$('#info-div-2').append(
+			$('#info-div-1').append(
 				'Base Happiness: ' +
 					data.base_happiness +
 					'<small>/255</small><br>'
 			);
-			$('#info-div-2').append(
+			$('#info-div-1').append(
 				'<hr>Capture Rate: ' +
 					data.capture_rate +
 					'<small>/255</small><br>'
 			);
-			$('#info-div-2').append(
+			$('#info-div-1').append(
 				'<hr>Growth Rate: ' + formatStr(data.growth_rate.name) + '<br>'
 			);
 
@@ -316,8 +316,8 @@ $(() => {
 				$(`#stat${stat}`).animate({ width: 1.5 * currentStat + 'px' });
 			}
 			$('#stats-div').append('<br>Sum: ' + totalStats);
-			$('#stats-div').append(
-				'<br><br>EVs Gained: ' +
+			$('#info-div-1').append(
+				'<hr>EVs Gained: ' +
 					EVVal +
 					' ' +
 					EVStat +
