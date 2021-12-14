@@ -57,9 +57,9 @@ $(() => {
 
 					let html = '<div class="row">';
 					for (let id in pokemonNames) {
-						html += `<div class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${(
-							parseInt(id) + 1
-						).toString()}')">
+						html += `<div class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${
+							pokemonNames[id]
+						}')">
                             <img src="https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${pokemonNames[
 								id
 							]
