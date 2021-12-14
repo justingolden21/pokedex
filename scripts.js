@@ -59,9 +59,10 @@ $(() => {
 					for (let id in pokemonNames) {
 						html += `<div class="col-6 clickable-text" onclick="searchPokemon('${(
 							parseInt(id) + 1
-						).toString()}')">#${(parseInt(id) + 1)
-							.toString()
-							.padStart(3, '0')} ${pokemonNames[id]}</div>`;
+						).toString()}')">
+                            #${(parseInt(id) + 1).toString().padStart(3, '0')}
+                            ${pokemonNames[id]}
+                        </div>`;
 					}
 					html += '</div>';
 					$('#container').html(html);
