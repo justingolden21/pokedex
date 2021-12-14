@@ -64,6 +64,51 @@ $(() => {
 		return str;
 	}
 
+	$('#container').html(`
+    <div id="loader" class="text-center"><i class="fas fa-spinner fa-2x fa-spin"></i></div>
+        <div class="row">
+            <div id="img-div" class="col-sm-4 col-6"></div>
+            <div id="header-div" class="col-sm-4 col-6"></div>
+            <div id="height-weight-div" class="col-sm-4 col-12"></div>
+            <div class="col-12">
+                <hr>
+            </div>
+            <div id="flavor-div" class="col-12"></div>
+            <div id="stats-div" class="col-sm-12 col-md-4">
+                <h3>Stats</h3>
+                <div id="hp-div"></div>
+                <div id="attack-div"></div>
+                <div id="defense-div"></div>
+                <div id="special-attack-div"></div>
+                <div id="special-defense-div"></div>
+                <div id="speed-div"></div>
+            </div>
+            <div id="info-div-1" class="col-sm-6 col-md-4">
+                <h3>Training</h3>
+                <div id="ability-div"></div>
+            </div>
+            <div id="info-div-2" class="col-sm-6 col-md-4">
+                <h3>Breeding</h3>
+                <div id="egg-group-div"></div>
+            </div>
+            <div id="evolution-div-container" class="col-12">
+                <div id="evolution-0"></div>
+                <div id="evolution-1"></div>
+                <div id="evolution-2"></div>
+            </div>
+            <div id="damage-taken-div-container" class="col-12">
+                <div class="row">
+                    <div id="damage-small" class="col-4"></div>
+                    <div id="damage-normal" class="col-4"></div>
+                    <div id="damage-large" class="col-4"></div>
+                </div>
+            </div>
+            <div id="moves-div-container" class="col-12">
+                <div id="moves-div" class="row"></div>
+            </div>
+        </div>
+    `);
+
 	fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
 		.then((res) => {
 			if (res.status == 404)
