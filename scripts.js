@@ -36,14 +36,20 @@ $(() => {
 		location.reload();
 	});
 
+	let numPokemon = 898;
+	let currentPokemon = -1;
+
 	let xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
 			pokemonNames = JSON.parse(this.responseText);
+			numPokemon = pokemonNames.length;
 
 			let newResult = firstAppearance(q, pokemonNames);
 			if (newResult.length != q.length) {
-				searchPokemon(newResult);
+				if (q !== '2' && newResult !== 'Porygon2') {
+					searchPokemon(newResult);
+				}
 			}
 
 			makeTypeAhead();
@@ -63,6 +69,21 @@ $(() => {
 		}
 		return str;
 	}
+
+	$('#prev-btn').on('click', function () {
+		if (currentPokemon != -1) {
+			const num = currentPokemon == 1 ? numPokemon : currentPokemon - 1;
+			$('#search-input').val(num);
+			$('#search-form').submit();
+		}
+	});
+	$('#next-btn').on('click', function () {
+		if (currentPokemon != -1) {
+			const num = currentPokemon == numPokemon ? 1 : currentPokemon + 1;
+			$('#search-input').val(num);
+			$('#search-form').submit();
+		}
+	});
 
 	$('#container').html(`
     <div id="loader" class="text-center"><i class="fas fa-spinner fa-2x fa-spin"></i></div>
@@ -321,6 +342,8 @@ $(() => {
 					capitalize(data.name) +
 					'</h3>'
 			);
+
+			currentPokemon = data.id;
 
 			for (let i = 0; i < data.types.length; i++) {
 				$('#header-div').append(
