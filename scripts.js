@@ -22,13 +22,18 @@ $(() => {
 	//get url params
 	let url = new URL(window.location.href);
 	let q = url.searchParams.get('q');
-	if (!q) q = 'bulbasaur';
-	q = q.replace(': ', '-'); // just for "Type: Null"
-	q = q.replace('.', '-'); // "Mr. Mime"
-	q = q.replace(' ', ''); // "Mr. Mime"
-	q = q.toLowerCase();
-	console.log(q);
-	setURLParam(q);
+	// if (!q) q = 'bulbasaur';
+	if (!q) {
+		// homescreen
+		q = '';
+	} else {
+		q = q.replace(': ', '-'); // just for "Type: Null"
+		q = q.replace('.', '-'); // "Mr. Mime"
+		q = q.replace(' ', ''); // "Mr. Mime"
+		q = q.toLowerCase();
+		console.log(q);
+		setURLParam(q);
+	}
 
 	$('#search-form').submit((evt) => {
 		setURLParam($('#search-input').val());
@@ -45,10 +50,29 @@ $(() => {
 			pokemonNames = JSON.parse(this.responseText);
 			numPokemon = pokemonNames.length;
 
-			let newResult = firstAppearance(q, pokemonNames);
-			if (newResult.length != q.length) {
-				if (q !== '2' && newResult !== 'Porygon2') {
-					searchPokemon(newResult);
+			if (q === '') {
+				if (q === '') {
+					$('#prev-btn').hide();
+					$('#next-btn').hide();
+
+					let html = '<div class="row">';
+					for (let id in pokemonNames) {
+						html += `<div class="col-6 clickable-text" onclick="searchPokemon('${(
+							parseInt(id) + 1
+						).toString()}')">#${(parseInt(id) + 1)
+							.toString()
+							.padStart(3, '0')} ${pokemonNames[id]}</div>`;
+					}
+					html += '</div>';
+					$('#container').html(html);
+				}
+			} else {
+				let newResult = firstAppearance(q, pokemonNames);
+				if (newResult.length != q.length) {
+					if (q !== '2' && newResult !== 'Porygon2') {
+						// should find #2 ivysaur not porygon2
+						searchPokemon(newResult);
+					}
 				}
 			}
 
@@ -62,6 +86,11 @@ $(() => {
 		true
 	);
 	xmlhttp.send();
+
+	if (q === '') {
+		$('#prev-btn').hide();
+		$('#next-btn').hide();
+	}
 
 	function firstAppearance(str, arr) {
 		for (item of arr) {
@@ -84,6 +113,8 @@ $(() => {
 			$('#search-form').submit();
 		}
 	});
+
+	if (q === '') return;
 
 	$('#container').html(`
     <div id="loader" class="text-center"><i class="fas fa-spinner fa-2x fa-spin"></i></div>
