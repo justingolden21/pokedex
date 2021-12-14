@@ -60,9 +60,6 @@ $(() => {
 						html += `<div class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${(
 							parseInt(id) + 1
 						).toString()}')">
-                            #${(parseInt(id) + 1).toString().padStart(3, '0')}
-                            ${pokemonNames[id]}
-
                             <img src="https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${pokemonNames[
 								id
 							]
@@ -78,6 +75,8 @@ $(() => {
 								.replace('’', '')}.png" alt="${
 							pokemonNames[id]
 						}">
+                        #${(parseInt(id) + 1).toString().padStart(3, '0')}
+                            ${pokemonNames[id]}
                         </div>`;
 					}
 					// https://msikma.github.io/pokesprite/overview/dex-gen8.html
