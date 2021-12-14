@@ -62,8 +62,25 @@ $(() => {
 						).toString()}')">
                             #${(parseInt(id) + 1).toString().padStart(3, '0')}
                             ${pokemonNames[id]}
+
+                            <img src="https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${pokemonNames[
+								id
+							]
+								.toLowerCase()
+								.replace('type: null', 'type-null')
+								.replace('jr.', 'jr')
+								.replace('mr. ', 'mr-')
+								.replace('.', '-')
+								.replace('♀', '-f')
+								.replace('♂', '-m')
+								.replace(' ', '-')
+								.replace("'", '')
+								.replace('’', '')}.png" alt="${
+							pokemonNames[id]
+						}">
                         </div>`;
 					}
+					// https://msikma.github.io/pokesprite/overview/dex-gen8.html
 					html += '</div>';
 					$('#container').html(html);
 				}
