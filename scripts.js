@@ -27,10 +27,15 @@ $(() => {
 		// homescreen
 		q = '';
 	} else {
+		q = q.toLowerCase();
 		q = q.replace(': ', '-'); // just for "Type: Null"
+		q = q.replace(' jr.', '-jr'); // "Mime Jr."
+		q = q.replace('’', ''); // "Farfetch’d"
+		q = q.replace("'", ''); // "Sirfetch'd"
+		q = q.replace('♀', '-f'); // "Nidoran♀"
+		q = q.replace('♂', '-m'); // "Nidoran♂"
 		q = q.replace('.', '-'); // "Mr. Mime"
 		q = q.replace(' ', ''); // "Mr. Mime"
-		q = q.toLowerCase();
 		console.log(q);
 		setURLParam(q);
 	}
