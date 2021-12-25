@@ -173,6 +173,8 @@ $(() => {
             <div id="moves-div-container" class="col-12">
                 <div id="moves-div" class="row"></div>
             </div>
+            <div id="links-div" class="col-12">
+            </div>
         </div>
     `);
 
@@ -376,6 +378,13 @@ $(() => {
 				);
 			}
 
+			$('#links-div').append(
+				`<hr>
+                <a href="https://pokemondb.net/pokedex/${formatPokemonName(
+					data.name
+				)}" target="_blank">pokemondb.net</a>`
+			);
+
 			$('#img-div').append(
 				'<img class="main pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
 					padThreeZeroes(data.id) +
@@ -464,6 +473,72 @@ $(() => {
 			);
 		});
 });
+
+function openNatures() {
+	$('.modal-title').html('Natures');
+	$('.modal-body').html(
+		`
+        <h3>By Stat</h3>
+        <table>
+        <thead>
+        <tr><th> <th class="text-negative">- Attack	<th class="text-negative">- Defense	<th class="text-negative">- Sp. Atk	<th class="text-negative">- Sp. Def	<th class="text-negative">- Speed
+        </thead>
+        <tbody>
+        <tr><th class="text-positive">+ Attack	<td>Hardy <td>Lonely <td>Adamant <td>Naughty <td>Brave
+        <tr><th class="text-positive">+ Defense	<td>Bold <td>Docile <td>Impish <td>Lax <td>Relaxed
+        <tr><th class="text-positive">+ Sp. Atk	<td>Modest <td>Mild <td>Bashful <td>Rash <td>Quiet
+        <tr><th class="text-positive">+ Sp. Def	<td>Calm <td>Gentle <td>Careful <td>Quirky <td>Sassy
+        <tr><th class="text-positive">+ Speed <td>Timid <td>Hasty <td>Jolly <td>Naive <td>Serious
+        </tbody>
+        </table>
+
+        <h3>Alphabetically</h3>
+        <table>
+        <thead>
+        <tr><th>Nature <th>Increases <th>Decreases
+        </thead>
+        <tbody>
+        <tr><td>Adamant	<td class="text-positive">Attack	<td class="text-negative">Sp. Atk
+        <tr><td>Bashful	<td class="text-positive">Sp. Atk	<td class="text-negative">Sp. Atk
+        <tr><td>Bold <td class="text-positive">Defense	<td class="text-negative">Attack
+        <tr><td>Brave <td class="text-positive">Attack	<td class="text-negative">Speed
+        <tr><td>Calm <td class="text-positive">Sp. Def	<td class="text-negative">Attack
+        <tr><td>Careful	<td class="text-positive">Sp. Def	<td class="text-negative">Sp. Atk
+        <tr><td>Docile <td class="text-positive">Defense	<td class="text-negative">Defense
+        <tr><td>Gentle <td class="text-positive">Sp. Def	<td class="text-negative">Defense
+        <tr><td>Hardy <td class="text-positive">Attack	<td class="text-negative">Attack
+        <tr><td>Hasty <td class="text-positive">Speed <td class="text-negative">Defense
+        <tr><td>Impish <td class="text-positive">Defense	<td class="text-negative">Sp. Atk
+        <tr><td>Jolly <td class="text-positive">Speed <td class="text-negative">Sp. Atk
+        <tr><td>Lax <td class="text-positive">Defense	<td class="text-negative">Sp. Def
+        <tr><td>Lonely <td class="text-positive">Attack	<td class="text-negative">Defense
+        <tr><td>Mild <td class="text-positive">Sp. Atk	<td class="text-negative">Defense
+        <tr><td>Modest <td class="text-positive">Sp. Atk	<td class="text-negative">Attack
+        <tr><td>Naive <td class="text-positive">Speed <td class="text-negative">Sp. Def
+        <tr><td>Naughty	<td class="text-positive">Attack	<td class="text-negative">Sp. Def
+        <tr><td>Quiet <td class="text-positive">Sp. Atk	<td class="text-negative">Speed
+        <tr><td>Quirky <td class="text-positive">Sp. Def	<td class="text-negative">Sp. Def
+        <tr><td>Rash <td class="text-positive">Sp. Atk	<td class="text-negative">Sp. Def
+        <tr><td>Relaxed	<td class="text-positive">Defense	<td class="text-negative">Speed
+        <tr><td>Sassy <td class="text-positive">Sp. Def	<td class="text-negative">Speed
+        <tr><td>Serious	<td class="text-positive">Speed <td class="text-negative">Speed
+        <tr><td>Timid <td class="text-positive">Speed <td class="text-negative">Attack
+        </tbody>
+        </table>
+
+        <h3>Berries</h3>
+        <table>
+        <tr><td>Attack</td><td>Spicy</td></tr>
+        <tr><td>Defense</td><td>Sour</td></tr>
+        <tr><td>Speed</td><td>Sweet</td></tr>
+        <tr><td>Sp. Attack</td><td>Dry</td></tr>
+        <tr><td>Sp. Defense</td><td>Bitter</td></tr>
+        </table>
+
+        Info from <a href="https://pokemondb.net/mechanics/natures" target="_blank">pokemondb.net/mechanics/natures</a>`
+	);
+	$('.modal').modal('show');
+}
 
 function openMove(moveName, moveURL) {
 	$('.modal-title').html(moveName);

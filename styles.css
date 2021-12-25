@@ -125,7 +125,27 @@ span.type {
 
 a,
 a:hover {
+	color: #333;
+}
+
+.navbar a,
+.navbar a:hover {
 	color: #fff;
+}
+
+/* natures */
+table {
+	border: 1px solid #ccc;
+}
+th,
+td {
+	padding: 0.5rem;
+}
+.text-positive {
+	color: green;
+}
+.text-negative {
+	color: red;
 }
 
 /*typeahead*/
