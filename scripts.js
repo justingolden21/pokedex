@@ -16,6 +16,19 @@ function sharePokemonLink(name) {
 	}
 }
 
+function formatPokemonName(str) {
+	return str
+		.toLowerCase()
+		.replace(': ', '-') // just for "Type: Null"
+		.replace(' jr.', '-jr') // "Mime Jr."
+		.replace('’', '') // "Farfetch’d"
+		.replace("'", '') // "Sirfetch'd"
+		.replace('♀', '-f') // "Nidoran♀"
+		.replace('♂', '-m') // "Nidoran♂"
+		.replace('mr. ', 'mr-') // "Mr. Mime"
+		.replace(' ', '-'); // Tapu
+}
+
 $(() => {
 	const setURLParam = (name) => history.replaceState({}, '', '?q=' + name);
 
@@ -27,15 +40,7 @@ $(() => {
 		// homescreen
 		q = '';
 	} else {
-		q = q.toLowerCase();
-		q = q.replace(': ', '-'); // just for "Type: Null"
-		q = q.replace(' jr.', '-jr'); // "Mime Jr."
-		q = q.replace('’', ''); // "Farfetch’d"
-		q = q.replace("'", ''); // "Sirfetch'd"
-		q = q.replace('♀', '-f'); // "Nidoran♀"
-		q = q.replace('♂', '-m'); // "Nidoran♂"
-		q = q.replace('.', '-'); // "Mr. Mime"
-		q = q.replace(' ', ''); // "Mr. Mime"
+		q = formatPokemonName(q);
 		console.log(q);
 		setURLParam(q);
 	}
@@ -65,21 +70,9 @@ $(() => {
 						html += `<div class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${
 							pokemonNames[id]
 						}')">
-                            <img src="https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${pokemonNames[
-								id
-							]
-								.toLowerCase()
-								.replace('type: null', 'type-null')
-								.replace('jr.', 'jr')
-								.replace('mr. ', 'mr-')
-								.replace('.', '-')
-								.replace('♀', '-f')
-								.replace('♂', '-m')
-								.replace(' ', '-')
-								.replace("'", '')
-								.replace('’', '')}.png" alt="${
-							pokemonNames[id]
-						}">
+                            <img src="https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${formatPokemonName(
+								pokemonNames[id]
+							)}.png" alt="${pokemonNames[id]}">
                         #${(parseInt(id) + 1).toString().padStart(3, '0')}
                             ${pokemonNames[id]}
                         </div>`;
