@@ -19,14 +19,40 @@ function sharePokemonLink(name) {
 function formatPokemonName(str) {
 	return str
 		.toLowerCase()
-		.replace(': ', '-') // just for "Type: Null"
-		.replace(' jr.', '-jr') // "Mime Jr."
-		.replace('’', '') // "Farfetch’d"
-		.replace("'", '') // "Sirfetch'd"
-		.replace('♀', '-f') // "Nidoran♀"
-		.replace('♂', '-m') // "Nidoran♂"
-		.replace('mr. ', 'mr-') // "Mr. Mime"
-		.replace(' ', '-'); // Tapu
+		.replace('deoxys-normal', 'deoxys')
+		.replace('wormadam-plant', 'wormadam')
+		.replace('giratina-altered', 'giratina')
+		.replace('shaymin-land', 'shaymin')
+		.replace('basculin-red-striped', 'basculin')
+		.replace('darmanitan-standard', 'darmanitan')
+		.replace('tornadus-incarnate', 'tornadus')
+		.replace('thundurus-incarnate', 'thundurus')
+		.replace('landorus-incarnate', 'landorus')
+		.replace('keldeo-ordinary', 'keldeo')
+		.replace('meloetta-aria', 'meloetta')
+		.replace('meowstic-male', 'meowstic')
+		.replace('aegislash-shield', 'aegislash')
+		.replace('pumpkaboo-average', 'pumpkaboo')
+		.replace('gourgeist-average', 'gourgeist')
+		.replace('zygarde-50', 'zygarde')
+		.replace('oricorio-baile', 'oricorio')
+		.replace('lycanroc-midday', 'lycanroc')
+		.replace('wishiwashi-solo', 'wishiwashi')
+		.replace('minior-red-meteor', 'minior')
+		.replace('mimikyu-disguised', 'mimikyu')
+		.replace('toxtricity-amped', 'toxtricity')
+		.replace('eiscue-ice', 'eiscue')
+		.replace('indeedee-male', 'indeedee')
+		.replace('morpeko-full-belly', 'morpeko')
+		.replace('urshifu-single-strike', 'urshifu')
+		// .replace(': ', '-') // just for "Type: Null"
+		// .replace(' jr.', '-jr') // "Mime Jr."
+		// .replace('’', '') // "Farfetch’d"
+		// .replace("'", '') // "Sirfetch'd"
+		// .replace('♀', '-f') // "Nidoran♀"
+		// .replace('♂', '-m') // "Nidoran♂"
+		// .replace('mr. ', 'mr-') // "Mr. Mime"
+		// .replace(' ', '-'); // Tapu
 }
 
 $(() => {
