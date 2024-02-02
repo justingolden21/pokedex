@@ -619,12 +619,12 @@ function openEggGroup(eggGroupName, eggGroupURL) {
 			let html = '';
 			for (let i = 0; i < data.pokemon_species.length; i++) {
 				console.log();
-				const name = formatDisplay(data.pokemon_species[i].name);
+				const name = data.pokemon_species[i].name;
 				html +=
 					'<button class="clickable-text" onclick="searchPokemon(\'' +
 					name +
 					'\')">' +
-					name +
+					formatDisplay(name) +
 					'</button>';
 			}
 			$('.modal-body').html(html);
