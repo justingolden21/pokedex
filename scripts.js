@@ -230,14 +230,16 @@ $(() => {
 										evoHTML += '<p>';
 										if (typeof evo[key] !== 'object') {
 											evoHTML +=
-												formatStr(key) +
+												formatDisplay(key) +
 												': ' +
-												formatStr(evo[key].toString());
+												formatDisplay(
+													evo[key].toString()
+												);
 										} else {
 											evoHTML +=
-												formatStr(key) +
+												formatDisplay(key) +
 												': ' +
-												formatStr(evo[key].name);
+												formatDisplay(evo[key].name);
 										}
 										evoHTML += '</p>';
 									}
@@ -259,7 +261,7 @@ $(() => {
 										'<div class="col-sm"> <p>#' +
 										data.id.toString().padStart(3, '0') +
 										' ' +
-										capitalize(data.name) +
+										formatDisplay(data.name) +
 										'</p><br>' +
 										typeHTML +
 										'</div><div class="col-sm"><img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
@@ -290,7 +292,9 @@ $(() => {
 					'<small>/255</small><br>'
 			);
 			$('#info-div-1').append(
-				'<hr>Growth Rate: ' + formatStr(data.growth_rate.name) + '<br>'
+				'<hr>Growth Rate: ' +
+					formatDisplay(data.growth_rate.name) +
+					'<br>'
 			);
 
 			// gender is "odds of being female in eighths, -1 for genderless"
@@ -327,7 +331,7 @@ $(() => {
 						"','" +
 						data.egg_groups[i].url +
 						'\')" class="clickable-text">' +
-						capitalize(data.egg_groups[i].name) +
+						formatDisplay(data.egg_groups[i].name) +
 						'</button>'
 				);
 			}
@@ -348,7 +352,7 @@ $(() => {
 			checkLoadCount();
 			console.log(data);
 
-			document.title = 'Pokedex - ' + capitalize(data.name);
+			document.title = 'Pokedex - ' + formatDisplay(data.name);
 
 			$('#damage-taken-div-container').prepend(
 				'<hr><h3>Damage Taken</h3>'
@@ -369,7 +373,7 @@ $(() => {
 			$('#moves-div-container').prepend('<hr><h3>Moves</h3>');
 			for (move of data.moves) {
 				// console.log(move.version_group_details[0].level_learned_at)
-				let moveName = formatStr(move.move.name);
+				let moveName = formatDisplay(move.move.name);
 				$('#moves-div').append(
 					'<button tabindex="0" onclick="openMove(\'' +
 						moveName +
@@ -395,7 +399,7 @@ $(() => {
 				'<h3><small>#' +
 					data.id.toString().padStart(3, '0') +
 					' &mdash; </small> ' +
-					capitalize(data.name) +
+					formatDisplay(data.name) +
 					'</h3>'
 			);
 
@@ -421,7 +425,7 @@ $(() => {
 				totalStats += currentStat;
 				$('#' + data.stats[stat].stat.name + '-div').append(
 					'' +
-						formatStr(data.stats[stat].stat.name) +
+						formatDisplay(data.stats[stat].stat.name) +
 						': ' +
 						currentStat +
 						''
@@ -434,7 +438,7 @@ $(() => {
 						';"></div>'
 				);
 				if (data.stats[stat].effort != 0) {
-					EVStat = formatStr(data.stats[stat].stat.name);
+					EVStat = formatDisplay(data.stats[stat].stat.name);
 					EVVal = data.stats[stat].effort;
 				}
 				$(`#stat${stat}`).animate({ width: 1.5 * currentStat + 'px' });
@@ -450,7 +454,7 @@ $(() => {
 
 			$('#ability-div').append('Abilities: <br>');
 			for (ability in data.abilities) {
-				let abilityName = formatStr(
+				let abilityName = formatDisplay(
 					data.abilities[ability].ability.name
 				);
 				$('#ability-div').append(
@@ -559,7 +563,7 @@ function openMove(moveName, moveURL) {
 					' &nbsp; <img src="img/move/' +
 					data.damage_class.name +
 					'.png">' +
-					capitalize(data.damage_class.name) +
+					formatDisplay(data.damage_class.name) +
 					'<div class="larger-text"><br><b>Power:</b> ' +
 					checkNull(data.power) +
 					'<br><b>Accuracy:</b> ' +
@@ -571,7 +575,7 @@ function openMove(moveName, moveURL) {
 					data.priority +
 					// '<br>Stat Changes: ' + data.stat_changes +
 					'<br><b>Target:</b> ' +
-					formatStr(data.target.name) +
+					formatDisplay(data.target.name) +
 					'<hr><b>Effect:</b> ' +
 					data.effect_entries[0].effect
 						.split('$effect_chance')
@@ -599,7 +603,7 @@ function openAbility(abilityName, abilityURL) {
 }
 
 function openEggGroup(eggGroupName, eggGroupURL) {
-	$('.modal-title').html(capitalize(eggGroupName));
+	$('.modal-title').html(formatDisplay(eggGroupName));
 	$('.modal-body').html(
 		'<div class="text-center"><i class="fas fa-spinner fa-2x fa-spin"></i></div>'
 	);
@@ -613,7 +617,7 @@ function openEggGroup(eggGroupName, eggGroupURL) {
 			let html = '';
 			for (let i = 0; i < data.pokemon_species.length; i++) {
 				console.log();
-				const name = capitalize(data.pokemon_species[i].name);
+				const name = formatDisplay(data.pokemon_species[i].name);
 				html +=
 					'<button class="clickable-text" onclick="searchPokemon(\'' +
 					name +
@@ -630,16 +634,16 @@ const getStatColor = (stat) => {
 	return `rgb(${n}, ${n}, ${n})`;
 };
 
-// const formatStr = str => capitalizeEach(str.replace('-',' ').replace('_',' ') )
-const formatStr = (str) =>
-	capitalizeEach(str.split('-').join(' ').split('_').join(' '));
-const capitalizeEach = (str) => {
-	let rtn = '',
-		words = str.split(' ');
-	for (word in words) rtn += capitalize(words[word]) + ' ';
-	return rtn.slice(0, -1);
-};
-const capitalize = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
+function formatDisplay(str) {
+	return str
+		.replace(/\b\w/g, (match) => match.toUpperCase())
+		.replace(/-/g, ' ')
+		.replace(/_/g, ' ');
+}
+
+function formatCode(str) {
+	return str.toLowerCase().replace(/\s+/g, '-');
+}
 
 const checkNull = (x) => (x ? x : 'N/A');
 
