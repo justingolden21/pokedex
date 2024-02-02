@@ -89,6 +89,23 @@ $(() => {
 			pokemonIDs = data.results.map(
 				(mon) => mon.url.match(/\/(\d+)\/$/)[1]
 			);
+
+			// Filter out above 10,000 (which are forms and megas, etc.)
+			let filtered = pokemonNames.reduce(
+				(result, name, index) => {
+					const idNumber = pokemonIDs[index];
+					if (idNumber <= 10_000) {
+						result.pokemonNames.push(name);
+						result.pokemonIDs.push(idNumber);
+					}
+					return result;
+				},
+				{ pokemonNames: [], pokemonIDs: [] }
+			);
+
+			pokemonNames = filtered.pokemonNames;
+			pokemonIDs = filtered.pokemonIDs;
+
 			console.log(pokemonIDs);
 			numPokemon = pokemonNames.length;
 
