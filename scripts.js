@@ -81,7 +81,7 @@ $(() => {
 						<img width="48px" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png">
                           
                         #${id.padStart(3, '0')}
-                            ${pokemonNames[idx]}
+                            ${formatDisplay(pokemonNames[idx])}
                         </button>`;
 				});
 				// https://msikma.github.io/pokesprite/overview/dex-gen8.html
@@ -707,7 +707,9 @@ function makeTypeAhead() {
 		},
 		{
 			name: 'Pokemon',
-			source: substringMatcher(pokemonNames),
+			source: substringMatcher(
+				pokemonNames.map((mon) => formatDisplay(mon))
+			),
 		}
 	);
 
