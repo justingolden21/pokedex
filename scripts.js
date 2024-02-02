@@ -75,14 +75,14 @@ $(() => {
 
 				let html = '<div class="row">';
 				pokemonIDs.forEach((id, idx) => {
-					html += `<div class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${
+					html += `<button class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${
 						pokemonNames[idx]
 					}')">
 						<img width="48px" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png">
                           
                         #${id.padStart(3, '0')}
                             ${pokemonNames[idx]}
-                        </div>`;
+                        </button>`;
 				});
 				// https://msikma.github.io/pokesprite/overview/dex-gen8.html
 				html += '</div>';
@@ -253,7 +253,7 @@ $(() => {
 
 								$('#evolution-' + idx).append(
 									'<div class="row border-bottom">' +
-										'<div class="clickable-text col-6 row" tabindex="0" onclick="searchPokemon(\'' +
+										'<button class="clickable-text col-6 row" tabindex="0" onclick="searchPokemon(\'' +
 										data.name +
 										'\')">' +
 										'<div class="col-sm"> <p>#' +
@@ -270,7 +270,7 @@ $(() => {
 												'0'
 											) +
 										'.png"></div>' +
-										'</div><div class="col-6">' +
+										'</button><div class="col-6">' +
 										evoHTML +
 										'</div>' +
 										'</div>'
@@ -319,19 +319,18 @@ $(() => {
 					'</small><br>'
 			);
 
-			$('#egg-group-div').append('Egg Groups: <ul>');
+			$('#egg-group-div').append('Egg Groups: <br>');
 			for (let i = 0; i < data.egg_groups.length; i++) {
 				$('#egg-group-div').append(
-					'<li tabindex="0" onclick="openEggGroup(\'' +
+					'<button tabindex="0" onclick="openEggGroup(\'' +
 						data.egg_groups[i].name +
 						"','" +
 						data.egg_groups[i].url +
 						'\')" class="clickable-text">' +
 						capitalize(data.egg_groups[i].name) +
-						'</li>'
+						'</button>'
 				);
 			}
-			$('#egg-group-div').append('</ul>');
 
 			let idx = 0;
 			for (; idx < data.flavor_text_entries.length; idx++) {
@@ -372,13 +371,13 @@ $(() => {
 				// console.log(move.version_group_details[0].level_learned_at)
 				let moveName = formatStr(move.move.name);
 				$('#moves-div').append(
-					'<div tabindex="0" onclick="openMove(\'' +
+					'<button tabindex="0" onclick="openMove(\'' +
 						moveName +
 						"','" +
 						move.move.url +
 						'\')" class="clickable-text col-6 col-sm-4 col-md-3 col-lg-2">' +
 						moveName +
-						'</div>'
+						'</button>'
 				);
 			}
 
@@ -449,23 +448,23 @@ $(() => {
 					'<br><hr class="mobile-only">'
 			);
 
-			$('#ability-div').append('Abilities: <ul>');
+			$('#ability-div').append('Abilities: <br>');
 			for (ability in data.abilities) {
 				let abilityName = formatStr(
 					data.abilities[ability].ability.name
 				);
 				$('#ability-div').append(
-					'<li tabindex="0" onclick="openAbility(\'' +
+					'<button tabindex="0" onclick="openAbility(\'' +
 						abilityName +
 						"','" +
 						data.abilities[ability].ability.url +
 						'\')" class="clickable-text">' +
 						abilityName +
 						(data.abilities[ability].is_hidden ? ' (hidden)' : '') +
-						'</li>'
+						'</button>'
 				);
 			}
-			$('#ability-div').append('</ul><hr>');
+			$('#ability-div').append('<hr>');
 
 			$('#height-weight-div').append(
 				'Weight: ' + data.weight / 10 + ' kg<br>'
@@ -616,11 +615,11 @@ function openEggGroup(eggGroupName, eggGroupURL) {
 				console.log();
 				const name = capitalize(data.pokemon_species[i].name);
 				html +=
-					'<div class="clickable-text" onclick="searchPokemon(\'' +
+					'<button class="clickable-text" onclick="searchPokemon(\'' +
 					name +
 					'\')">' +
 					name +
-					'</div>';
+					'</button>';
 			}
 			$('.modal-body').html(html);
 		});

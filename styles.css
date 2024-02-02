@@ -21,6 +21,14 @@ img {
 	user-drag: none;
 }
 
+/* Reset button css */
+button {
+	margin: 0;
+	padding: 0;
+	border: none;
+	background-color: transparent;
+}
+
 li {
 	list-style: none;
 }
