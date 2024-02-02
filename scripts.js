@@ -28,6 +28,7 @@ $(() => {
 		// homescreen
 		q = '';
 	} else {
+		q = formatCode(q);
 		console.log(q);
 		setURLParam(q);
 	}
@@ -66,7 +67,6 @@ $(() => {
 			pokemonNames = filtered.pokemonNames;
 			pokemonIDs = filtered.pokemonIDs;
 
-			console.log(pokemonIDs);
 			numPokemon = pokemonNames.length;
 
 			if (q === '') {
