@@ -78,7 +78,7 @@ $(() => {
 					html += `<div class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${
 						pokemonNames[idx]
 					}')">
-						<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png">
+						<img width="48px" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png">
                           
                         #${id.padStart(3, '0')}
                             ${pokemonNames[idx]}
