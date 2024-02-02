@@ -17,45 +17,6 @@ function sharePokemonLink(name) {
 	}
 }
 
-function formatPokemonName(str) {
-	return str.toLowerCase();
-	// .replace('deoxys-normal', 'deoxys')
-	// .replace('wormadam-plant', 'wormadam')
-	// .replace('giratina-altered', 'giratina')
-	// .replace('shaymin-land', 'shaymin')
-	// .replace('basculin-red-striped', 'basculin')
-	// .replace('darmanitan-standard', 'darmanitan')
-	// .replace('tornadus-incarnate', 'tornadus')
-	// .replace('thundurus-incarnate', 'thundurus')
-	// .replace('landorus-incarnate', 'landorus')
-	// .replace('keldeo-ordinary', 'keldeo')
-	// .replace('meloetta-aria', 'meloetta')
-	// .replace('meowstic-male', 'meowstic')
-	// .replace('aegislash-shield', 'aegislash')
-	// .replace('pumpkaboo-average', 'pumpkaboo')
-	// .replace('gourgeist-average', 'gourgeist')
-	// .replace('zygarde-50', 'zygarde')
-	// .replace('oricorio-baile', 'oricorio')
-	// .replace('lycanroc-midday', 'lycanroc')
-	// .replace('wishiwashi-solo', 'wishiwashi')
-	// .replace('minior-red-meteor', 'minior')
-	// .replace('mimikyu-disguised', 'mimikyu')
-	// .replace('toxtricity-amped', 'toxtricity')
-	// .replace('eiscue-ice', 'eiscue')
-	// .replace('indeedee-male', 'indeedee')
-	// .replace('morpeko-full-belly', 'morpeko')
-	// .replace('urshifu-single-strike', 'urshifu')
-
-	// .replace(': ', '-') // just for "Type: Null"
-	// .replace(' jr.', '-jr') // "Mime Jr."
-	// .replace('’', '') // "Farfetch’d"
-	// .replace("'", '') // "Sirfetch'd"
-	// .replace('♀', '-f') // "Nidoran♀"
-	// .replace('♂', '-m') // "Nidoran♂"
-	// .replace('mr. ', 'mr-') // "Mr. Mime"
-	// .replace(' ', '-'); // Tapu
-}
-
 $(() => {
 	const setURLParam = (name) => history.replaceState({}, '', '?q=' + name);
 
@@ -67,7 +28,6 @@ $(() => {
 		// homescreen
 		q = '';
 	} else {
-		q = formatPokemonName(q);
 		console.log(q);
 		setURLParam(q);
 	}
@@ -115,9 +75,6 @@ $(() => {
 
 				let html = '<div class="row">';
 				pokemonIDs.forEach((id, idx) => {
-					// <img src="https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${formatPokemonName(
-					// 	pokemonNames[id]
-					// )}.png" alt="${pokemonNames[id]}">
 					html += `<div class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${
 						pokemonNames[idx]
 					}')">
@@ -427,9 +384,7 @@ $(() => {
 
 			$('#links-div').append(
 				`<hr>
-                <a href="https://pokemondb.net/pokedex/${formatPokemonName(
-					data.name
-				)}" target="_blank">pokemondb.net</a>`
+                <a href="https://pokemondb.net/pokedex/${data.name}" target="_blank">pokemondb.net</a>`
 			);
 
 			$('#img-div').append(
