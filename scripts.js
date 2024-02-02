@@ -106,7 +106,7 @@ $(() => {
 					}')">
 						<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png">
                           
-                        #${(parseInt(id) + 1).toString().padStart(3, '0')}
+                        #${id.padStart(3, '0')}
                             ${pokemonNames[idx]}
                         </div>`;
 				});
