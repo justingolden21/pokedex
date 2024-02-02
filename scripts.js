@@ -271,13 +271,8 @@ $(() => {
 										formatDisplay(data.name) +
 										'</p><br>' +
 										typeHTML +
-										'</div><div class="col-sm"><img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
-										data.id
-											.toString()
-											.padStart(
-												data.id < 1000 ? 3 : 4,
-												'0'
-											) +
+										'</div><div class="col-sm"><img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+										data.id +
 										'.png"></div>' +
 										'</button><div class="col-6">' +
 										evoHTML +
@@ -398,8 +393,8 @@ $(() => {
 			);
 
 			$('#img-div').append(
-				'<img class="main pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
-					data.id.toString().padStart(data.id < 1000 ? 3 : 4, '0') +
+				'<img class="main pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+					data.id +
 					'.png">'
 			);
 			$('#header-div').append(
