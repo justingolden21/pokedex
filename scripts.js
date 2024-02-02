@@ -90,7 +90,14 @@ $(() => {
 			} else {
 				let newResult = firstAppearance(q, pokemonNames);
 				if (newResult.length != q.length) {
-					if (q !== '2' && newResult !== 'Porygon2') {
+					if (
+						q !== '2' &&
+						newResult !== 'porygon2' &&
+						q !== '5' &&
+						newResult !== 'zygarde-50' &&
+						q !== '50' &&
+						newResult !== 'zygarde-50'
+					) {
 						// should find #2 ivysaur not porygon2
 						searchPokemon(newResult);
 					}
