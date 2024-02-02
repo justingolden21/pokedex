@@ -54,10 +54,14 @@ $(() => {
 	let numPokemon = 898;
 	let currentPokemon = -1;
 
-	let xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function () {
-		if (this.readyState == 4 && this.status == 200) {
-			pokemonNames = JSON.parse(this.responseText);
+	// let xmlhttp = new XMLHttpRequest();
+	// xmlhttp.onreadystatechange = function () {
+	fetch('https://pokeapi.co/api/v2/pokemon?limit=9999')
+		.then((res) => res.json())
+		.then((data) => {
+			pokemonNames = data.results.map((mon) => mon.name);
+			// if (this.readyState == 4 && this.status == 200) {
+			// pokemonNames = JSON.parse(this.responseText);
 			numPokemon = pokemonNames.length;
 
 			if (q === '') {
@@ -93,14 +97,15 @@ $(() => {
 
 			makeTypeAhead();
 			$('#search-input').focus();
-		}
-	};
-	xmlhttp.open(
-		'GET',
-		'https://raw.githubusercontent.com/sindresorhus/pokemon/master/data/en.json',
-		true
-	);
-	xmlhttp.send();
+			// }
+		});
+	// };
+	// xmlhttp.open(
+	// 	'GET',
+	// 	'https://raw.githubusercontent.com/sindresorhus/pokemon/master/data/en.json',
+	// 	true
+	// );
+	// xmlhttp.send();
 
 	if (q === '') {
 		$('#prev-btn').hide();
