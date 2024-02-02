@@ -1,4 +1,5 @@
 let pokemonNames;
+let pokemonIDs = [];
 
 function sharePokemonLink(name) {
 	if (navigator.share) {
@@ -19,32 +20,33 @@ function sharePokemonLink(name) {
 function formatPokemonName(str) {
 	return str
 		.toLowerCase()
-		.replace('deoxys-normal', 'deoxys')
-		.replace('wormadam-plant', 'wormadam')
-		.replace('giratina-altered', 'giratina')
-		.replace('shaymin-land', 'shaymin')
-		.replace('basculin-red-striped', 'basculin')
-		.replace('darmanitan-standard', 'darmanitan')
-		.replace('tornadus-incarnate', 'tornadus')
-		.replace('thundurus-incarnate', 'thundurus')
-		.replace('landorus-incarnate', 'landorus')
-		.replace('keldeo-ordinary', 'keldeo')
-		.replace('meloetta-aria', 'meloetta')
-		.replace('meowstic-male', 'meowstic')
-		.replace('aegislash-shield', 'aegislash')
-		.replace('pumpkaboo-average', 'pumpkaboo')
-		.replace('gourgeist-average', 'gourgeist')
-		.replace('zygarde-50', 'zygarde')
-		.replace('oricorio-baile', 'oricorio')
-		.replace('lycanroc-midday', 'lycanroc')
-		.replace('wishiwashi-solo', 'wishiwashi')
-		.replace('minior-red-meteor', 'minior')
-		.replace('mimikyu-disguised', 'mimikyu')
-		.replace('toxtricity-amped', 'toxtricity')
-		.replace('eiscue-ice', 'eiscue')
-		.replace('indeedee-male', 'indeedee')
-		.replace('morpeko-full-belly', 'morpeko')
-		.replace('urshifu-single-strike', 'urshifu')
+		// .replace('deoxys-normal', 'deoxys')
+		// .replace('wormadam-plant', 'wormadam')
+		// .replace('giratina-altered', 'giratina')
+		// .replace('shaymin-land', 'shaymin')
+		// .replace('basculin-red-striped', 'basculin')
+		// .replace('darmanitan-standard', 'darmanitan')
+		// .replace('tornadus-incarnate', 'tornadus')
+		// .replace('thundurus-incarnate', 'thundurus')
+		// .replace('landorus-incarnate', 'landorus')
+		// .replace('keldeo-ordinary', 'keldeo')
+		// .replace('meloetta-aria', 'meloetta')
+		// .replace('meowstic-male', 'meowstic')
+		// .replace('aegislash-shield', 'aegislash')
+		// .replace('pumpkaboo-average', 'pumpkaboo')
+		// .replace('gourgeist-average', 'gourgeist')
+		// .replace('zygarde-50', 'zygarde')
+		// .replace('oricorio-baile', 'oricorio')
+		// .replace('lycanroc-midday', 'lycanroc')
+		// .replace('wishiwashi-solo', 'wishiwashi')
+		// .replace('minior-red-meteor', 'minior')
+		// .replace('mimikyu-disguised', 'mimikyu')
+		// .replace('toxtricity-amped', 'toxtricity')
+		// .replace('eiscue-ice', 'eiscue')
+		// .replace('indeedee-male', 'indeedee')
+		// .replace('morpeko-full-belly', 'morpeko')
+		// .replace('urshifu-single-strike', 'urshifu')
+
 		// .replace(': ', '-') // just for "Type: Null"
 		// .replace(' jr.', '-jr') // "Mime Jr."
 		// .replace('’', '') // "Farfetch’d"
@@ -77,36 +79,39 @@ $(() => {
 		location.reload();
 	});
 
-	let numPokemon = 898;
+	let numPokemon = 0;
 	let currentPokemon = -1;
 
 	fetch('https://pokeapi.co/api/v2/pokemon?limit=9999')
 		.then((res) => res.json())
 		.then((data) => {
 			pokemonNames = data.results.map((mon) => mon.name);
+			// url ends in `/123/`
+			pokemonIDs = data.results.map((mon) => (mon.url.match(/\/(\d+)\/$/)[1]));
+			console.log(pokemonIDs)
 			numPokemon = pokemonNames.length;
 
 			if (q === '') {
-				if (q === '') {
 					$('#prev-btn').hide();
 					$('#next-btn').hide();
 
 					let html = '<div class="row">';
-					for (let id in pokemonNames) {
+					pokemonIDs.forEach((id, idx)=> {
+						// <img src="https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${formatPokemonName(
+						// 	pokemonNames[id]
+						// )}.png" alt="${pokemonNames[id]}">
 						html += `<div class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${
-							pokemonNames[id]
+							pokemonNames[idx]
 						}')">
-                            <img src="https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${formatPokemonName(
-								pokemonNames[id]
-							)}.png" alt="${pokemonNames[id]}">
+						<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png">
+                          
                         #${(parseInt(id) + 1).toString().padStart(3, '0')}
-                            ${pokemonNames[id]}
+                            ${pokemonNames[idx]}
                         </div>`;
-					}
+					});
 					// https://msikma.github.io/pokesprite/overview/dex-gen8.html
 					html += '</div>';
 					$('#container').html(html);
-				}
 			} else {
 				let newResult = firstAppearance(q, pokemonNames);
 				if (newResult.length != q.length) {
@@ -283,7 +288,7 @@ $(() => {
 										'</p><br>' +
 										typeHTML +
 										'</div><div class="col-sm"><img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
-										padThreeZeroes(data.id) +
+										(data.id).toString().padStart(data.id < 1000 ? 3 : 4, '0') +
 										'.png"></div>' +
 										'</div><div class="col-6">' +
 										evoHTML +
@@ -406,7 +411,7 @@ $(() => {
 
 			$('#img-div').append(
 				'<img class="main pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
-					padThreeZeroes(data.id) +
+					(data.id).toString().padStart(data.id < 1000 ? 3 : 4, '0') +
 					'.png">'
 			);
 			$('#header-div').append(
@@ -658,8 +663,6 @@ const capitalizeEach = (str) => {
 	return rtn.slice(0, -1);
 };
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
-
-const padThreeZeroes = (str) => ('00' + str).slice(-3);
 
 const checkNull = (x) => (x ? x : 'N/A');
 
