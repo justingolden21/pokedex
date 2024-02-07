@@ -1,3 +1,8 @@
+/**
+ * todo
+ * use vanilla css and vanilla js
+ * bugfixes for edge cases
+ */
 let pokemonNames;
 let pokemonIDs = [];
 
@@ -17,19 +22,54 @@ function sharePokemonLink(name) {
 	}
 }
 
+function pokemonEdgeCases(str) {
+	// TODO: confirm these are all of them
+	// TODO: make a function that does the opposite?
+	return str
+		.replace('deoxys-normal', 'deoxys')
+		.replace('wormadam-plant', 'wormadam')
+		.replace('wormadam', 'wormadam-plant')
+		.replace('giratina-altered', 'giratina')
+		.replace('shaymin-land', 'shaymin')
+		.replace('basculin-red-striped', 'basculin')
+		.replace('darmanitan-standard', 'darmanitan')
+		.replace('tornadus-incarnate', 'tornadus')
+		.replace('thundurus-incarnate', 'thundurus')
+		.replace('landorus-incarnate', 'landorus')
+		.replace('keldeo-ordinary', 'keldeo')
+		.replace('meloetta-aria', 'meloetta')
+		.replace('meowstic-male', 'meowstic')
+		.replace('aegislash-shield', 'aegislash')
+		.replace('pumpkaboo-average', 'pumpkaboo')
+		.replace('gourgeist-average', 'gourgeist')
+		.replace('zygarde-50', 'zygarde')
+		.replace('oricorio-baile', 'oricorio')
+		.replace('lycanroc-midday', 'lycanroc')
+		.replace('wishiwashi-solo', 'wishiwashi')
+		.replace('minior-red-meteor', 'minior')
+		.replace('mimikyu-disguised', 'mimikyu')
+		.replace('toxtricity-amped', 'toxtricity')
+		.replace('eiscue-ice', 'eiscue')
+		.replace('indeedee-male', 'indeedee')
+		.replace('morpeko-full-belly', 'morpeko')
+		.replace('urshifu-single-strike', 'urshifu')
+		.replace('basculegion-male', 'basculegion')
+		.replace('enamorus-male', 'enamorus');
+}
+
 $(() => {
 	const setURLParam = (name) => history.replaceState({}, '', '?q=' + name);
 
 	//get url params
 	let url = new URL(window.location.href);
 	let q = url.searchParams.get('q');
+	console.log('q', q);
 	// if (!q) q = 'bulbasaur';
 	if (!q) {
 		// homescreen
 		q = '';
 	} else {
 		q = formatCode(q);
-		console.log(q);
 		setURLParam(q);
 	}
 
@@ -184,7 +224,7 @@ $(() => {
         </div>
     `);
 
-	fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
+	fetch('https://pokeapi.co/api/v2/pokemon-species/' + formatCode(q))
 		.then((res) => {
 			if (res.status == 404)
 				$('#loader').html('<h3>Pokemon Not Found</h3>');
@@ -224,7 +264,7 @@ $(() => {
 						const evo = evoChain[idx];
 						fetch(
 							'https://pokeapi.co/api/v2/pokemon/' +
-								evo.species_name
+								formatCode(evo.species_name)
 						)
 							.then((res) => res.json())
 							.then((data) => {
@@ -348,7 +388,7 @@ $(() => {
 			);
 		});
 
-	fetch('https://pokeapi.co/api/v2/pokemon/' + q)
+	fetch('https://pokeapi.co/api/v2/pokemon/' + formatCode(q))
 		.then((res) => res.json())
 		.then((data) => {
 			checkLoadCount();
@@ -644,7 +684,7 @@ function formatDisplay(str) {
 }
 
 function formatCode(str) {
-	return str.toLowerCase().replace(/\s+/g, '-');
+	return pokemonEdgeCases(str.toLowerCase().replace(/\s+/g, '-'));
 }
 
 const checkNull = (x) => (x ? x : 'N/A');
