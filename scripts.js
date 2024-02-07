@@ -2,6 +2,7 @@
  * todo
  * use vanilla css and vanilla js
  * bugfixes for edge cases
+ * next/prev buttons should add history state
  */
 let pokemonNames;
 let pokemonIDs = [];
@@ -22,6 +23,7 @@ function sharePokemonLink(name) {
 	}
 }
 
+// Used for `pokemon-species` API but not `pokemon` API
 function pokemonEdgeCases(str) {
 	// TODO: confirm these are all of them
 	// TODO: make a function that does the opposite?
@@ -76,6 +78,7 @@ $(() => {
 	$('#search-form').submit((evt) => {
 		setURLParam($('#search-input').val());
 		evt.preventDefault();
+		// Comment out below line for debugging purposes
 		location.reload();
 	});
 
@@ -224,7 +227,10 @@ $(() => {
         </div>
     `);
 
-	fetch('https://pokeapi.co/api/v2/pokemon-species/' + formatCode(q))
+	fetch(
+		'https://pokeapi.co/api/v2/pokemon-species/' +
+			pokemonEdgeCases(formatCode(q))
+	)
 		.then((res) => {
 			if (res.status == 404)
 				$('#loader').html('<h3>Pokemon Not Found</h3>');
@@ -684,7 +690,7 @@ function formatDisplay(str) {
 }
 
 function formatCode(str) {
-	return pokemonEdgeCases(str.toLowerCase().replace(/\s+/g, '-'));
+	return str.toLowerCase().replace(/\s+/g, '-');
 }
 
 const checkNull = (x) => (x ? x : 'N/A');
