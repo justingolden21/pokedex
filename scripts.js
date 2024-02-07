@@ -3,6 +3,7 @@
  * use vanilla css and vanilla js
  * bugfixes for edge cases
  * next/prev buttons should add history state
+ * show form variants on pokedex page
  */
 let pokemonNames;
 let pokemonIDs = [];
