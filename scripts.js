@@ -27,11 +27,9 @@ function sharePokemonLink(name) {
 // Used for `pokemon-species` API but not `pokemon` API
 function removePokemonFormName(str) {
 	// TODO: confirm these are all of them
-	// TODO: make a function that does the opposite?
 	return str
 		.replace('deoxys-normal', 'deoxys')
 		.replace('wormadam-plant', 'wormadam')
-		.replace('wormadam', 'wormadam-plant')
 		.replace('giratina-altered', 'giratina')
 		.replace('shaymin-land', 'shaymin')
 		.replace('basculin-red-striped', 'basculin')
@@ -58,6 +56,38 @@ function removePokemonFormName(str) {
 		.replace('urshifu-single-strike', 'urshifu')
 		.replace('basculegion-male', 'basculegion')
 		.replace('enamorus-male', 'enamorus');
+}
+
+function addPokemonFormName(str) {
+	return str
+		.replace('deoxys', 'deoxys-normal')
+		.replace('wormadam', 'wormadam-plant')
+		.replace('giratina', 'giratina-altered')
+		.replace('shaymin', 'shaymin-land')
+		.replace('basculin', 'basculin-red-striped')
+		.replace('darmanitan', 'darmanitan-standard')
+		.replace('tornadus', 'tornadus-incarnate')
+		.replace('thundurus', 'thundurus-incarnate')
+		.replace('landorus', 'landorus-incarnate')
+		.replace('keldeo', 'keldeo-ordinary')
+		.replace('meloetta', 'meloetta-aria')
+		.replace('meowstic', 'meowstic-male')
+		.replace('aegislash', 'aegislash-shield')
+		.replace('pumpkaboo', 'pumpkaboo-average')
+		.replace('gourgeist', 'gourgeist-average')
+		.replace('zygarde', 'zygarde-50')
+		.replace('oricorio', 'oricorio-baile')
+		.replace('lycanroc', 'lycanroc-midday')
+		.replace('wishiwashi', 'wishiwashi-solo')
+		.replace('minior', 'minior-red-meteor')
+		.replace('mimikyu', 'mimikyu-disguised')
+		.replace('toxtricity', 'toxtricity-amped')
+		.replace('eiscue', 'eiscue-ice')
+		.replace('indeedee', 'indeedee-male')
+		.replace('morpeko', 'morpeko-full-belly')
+		.replace('urshifu', 'urshifu-single-strike')
+		.replace('basculegion', 'basculegion-male')
+		.replace('enamorus', 'enamorus-male');
 }
 
 $(() => {
@@ -271,7 +301,7 @@ $(() => {
 						const evo = evoChain[idx];
 						fetch(
 							'https://pokeapi.co/api/v2/pokemon/' +
-								formatCode(evo.species_name)
+								addPokemonFormName(formatCode(evo.species_name))
 						)
 							.then((res) => res.json())
 							.then((data) => {
