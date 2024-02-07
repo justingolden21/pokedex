@@ -25,7 +25,7 @@ function sharePokemonLink(name) {
 }
 
 // Used for `pokemon-species` API but not `pokemon` API
-function pokemonEdgeCases(str) {
+function removePokemonFormName(str) {
 	// TODO: confirm these are all of them
 	// TODO: make a function that does the opposite?
 	return str
@@ -230,7 +230,7 @@ $(() => {
 
 	fetch(
 		'https://pokeapi.co/api/v2/pokemon-species/' +
-			pokemonEdgeCases(formatCode(q))
+			removePokemonFormName(formatCode(q))
 	)
 		.then((res) => {
 			if (res.status == 404)
