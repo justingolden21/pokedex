@@ -1,4 +1,12 @@
+/**
+ * todo
+ * use vanilla css and vanilla js
+ * bugfixes for edge cases
+ * next/prev buttons should add history state
+ * show form variants on pokedex page
+ */
 let pokemonNames;
+let pokemonIDs = [];
 
 function sharePokemonLink(name) {
 	if (navigator.share) {
@@ -16,17 +24,70 @@ function sharePokemonLink(name) {
 	}
 }
 
-function formatPokemonName(str) {
+// Used for `pokemon-species` API but not `pokemon` API
+function removePokemonFormName(str) {
+	// TODO: confirm these are all of them
 	return str
-		.toLowerCase()
-		.replace(': ', '-') // just for "Type: Null"
-		.replace(' jr.', '-jr') // "Mime Jr."
-		.replace('’', '') // "Farfetch’d"
-		.replace("'", '') // "Sirfetch'd"
-		.replace('♀', '-f') // "Nidoran♀"
-		.replace('♂', '-m') // "Nidoran♂"
-		.replace('mr. ', 'mr-') // "Mr. Mime"
-		.replace(' ', '-'); // Tapu
+		.replace('deoxys-normal', 'deoxys')
+		.replace('wormadam-plant', 'wormadam')
+		.replace('giratina-altered', 'giratina')
+		.replace('shaymin-land', 'shaymin')
+		.replace('basculin-red-striped', 'basculin')
+		.replace('darmanitan-standard', 'darmanitan')
+		.replace('tornadus-incarnate', 'tornadus')
+		.replace('thundurus-incarnate', 'thundurus')
+		.replace('landorus-incarnate', 'landorus')
+		.replace('keldeo-ordinary', 'keldeo')
+		.replace('meloetta-aria', 'meloetta')
+		.replace('meowstic-male', 'meowstic')
+		.replace('aegislash-shield', 'aegislash')
+		.replace('pumpkaboo-average', 'pumpkaboo')
+		.replace('gourgeist-average', 'gourgeist')
+		.replace('zygarde-50', 'zygarde')
+		.replace('oricorio-baile', 'oricorio')
+		.replace('lycanroc-midday', 'lycanroc')
+		.replace('wishiwashi-solo', 'wishiwashi')
+		.replace('minior-red-meteor', 'minior')
+		.replace('mimikyu-disguised', 'mimikyu')
+		.replace('toxtricity-amped', 'toxtricity')
+		.replace('eiscue-ice', 'eiscue')
+		.replace('indeedee-male', 'indeedee')
+		.replace('morpeko-full-belly', 'morpeko')
+		.replace('urshifu-single-strike', 'urshifu')
+		.replace('basculegion-male', 'basculegion')
+		.replace('enamorus-male', 'enamorus');
+}
+
+function addPokemonFormName(str) {
+	return str
+		.replace('deoxys', 'deoxys-normal')
+		.replace('wormadam', 'wormadam-plant')
+		.replace('giratina', 'giratina-altered')
+		.replace('shaymin', 'shaymin-land')
+		.replace('basculin', 'basculin-red-striped')
+		.replace('darmanitan', 'darmanitan-standard')
+		.replace('tornadus', 'tornadus-incarnate')
+		.replace('thundurus', 'thundurus-incarnate')
+		.replace('landorus', 'landorus-incarnate')
+		.replace('keldeo', 'keldeo-ordinary')
+		.replace('meloetta', 'meloetta-aria')
+		.replace('meowstic', 'meowstic-male')
+		.replace('aegislash', 'aegislash-shield')
+		.replace('pumpkaboo', 'pumpkaboo-average')
+		.replace('gourgeist', 'gourgeist-average')
+		.replace('zygarde', 'zygarde-50')
+		.replace('oricorio', 'oricorio-baile')
+		.replace('lycanroc', 'lycanroc-midday')
+		.replace('wishiwashi', 'wishiwashi-solo')
+		.replace('minior', 'minior-red-meteor')
+		.replace('mimikyu', 'mimikyu-disguised')
+		.replace('toxtricity', 'toxtricity-amped')
+		.replace('eiscue', 'eiscue-ice')
+		.replace('indeedee', 'indeedee-male')
+		.replace('morpeko', 'morpeko-full-belly')
+		.replace('urshifu', 'urshifu-single-strike')
+		.replace('basculegion', 'basculegion-male')
+		.replace('enamorus', 'enamorus-male');
 }
 
 $(() => {
@@ -35,56 +96,82 @@ $(() => {
 	//get url params
 	let url = new URL(window.location.href);
 	let q = url.searchParams.get('q');
+	console.log('q', q);
 	// if (!q) q = 'bulbasaur';
 	if (!q) {
 		// homescreen
 		q = '';
 	} else {
-		q = formatPokemonName(q);
-		console.log(q);
+		q = formatCode(q);
 		setURLParam(q);
 	}
 
 	$('#search-form').submit((evt) => {
 		setURLParam($('#search-input').val());
 		evt.preventDefault();
+		// Comment out below line for debugging purposes
 		location.reload();
 	});
 
-	let numPokemon = 898;
+	let numPokemon = 0;
 	let currentPokemon = -1;
 
-	let xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function () {
-		if (this.readyState == 4 && this.status == 200) {
-			pokemonNames = JSON.parse(this.responseText);
+	fetch('https://pokeapi.co/api/v2/pokemon?limit=9999')
+		.then((res) => res.json())
+		.then((data) => {
+			pokemonNames = data.results.map((mon) => mon.name);
+			// url ends in `/123/`
+			pokemonIDs = data.results.map(
+				(mon) => mon.url.match(/\/(\d+)\/$/)[1]
+			);
+
+			// Filter out above 10,000 (which are forms and megas, etc.)
+			let filtered = pokemonNames.reduce(
+				(result, name, index) => {
+					const idNumber = pokemonIDs[index];
+					if (idNumber <= 10_000) {
+						result.pokemonNames.push(name);
+						result.pokemonIDs.push(idNumber);
+					}
+					return result;
+				},
+				{ pokemonNames: [], pokemonIDs: [] }
+			);
+
+			pokemonNames = filtered.pokemonNames;
+			pokemonIDs = filtered.pokemonIDs;
+
 			numPokemon = pokemonNames.length;
 
 			if (q === '') {
-				if (q === '') {
-					$('#prev-btn').hide();
-					$('#next-btn').hide();
+				$('#prev-btn').hide();
+				$('#next-btn').hide();
 
-					let html = '<div class="row">';
-					for (let id in pokemonNames) {
-						html += `<div class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${
-							pokemonNames[id]
-						}')">
-                            <img src="https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${formatPokemonName(
-								pokemonNames[id]
-							)}.png" alt="${pokemonNames[id]}">
-                        #${(parseInt(id) + 1).toString().padStart(3, '0')}
-                            ${pokemonNames[id]}
-                        </div>`;
-					}
-					// https://msikma.github.io/pokesprite/overview/dex-gen8.html
-					html += '</div>';
-					$('#container').html(html);
-				}
+				let html = '<div class="row">';
+				pokemonIDs.forEach((id, idx) => {
+					html += `<button class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${
+						pokemonNames[idx]
+					}')">
+						<img width="96px" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png">
+						<br>
+                        #${id.padStart(3, '0')}
+                            ${formatDisplay(pokemonNames[idx])}
+                        </button>`;
+				});
+				// https://msikma.github.io/pokesprite/overview/dex-gen8.html
+				html += '</div>';
+				$('#container').html(html);
 			} else {
 				let newResult = firstAppearance(q, pokemonNames);
 				if (newResult.length != q.length) {
-					if (q !== '2' && newResult !== 'Porygon2') {
+					if (
+						q !== '2' &&
+						newResult !== 'porygon2' &&
+						q !== '5' &&
+						newResult !== 'zygarde-50' &&
+						q !== '50' &&
+						newResult !== 'zygarde-50'
+					) {
 						// should find #2 ivysaur not porygon2
 						searchPokemon(newResult);
 					}
@@ -93,14 +180,7 @@ $(() => {
 
 			makeTypeAhead();
 			$('#search-input').focus();
-		}
-	};
-	xmlhttp.open(
-		'GET',
-		'https://raw.githubusercontent.com/sindresorhus/pokemon/master/data/en.json',
-		true
-	);
-	xmlhttp.send();
+		});
 
 	if (q === '') {
 		$('#prev-btn').hide();
@@ -178,7 +258,10 @@ $(() => {
         </div>
     `);
 
-	fetch('https://pokeapi.co/api/v2/pokemon-species/' + q)
+	fetch(
+		'https://pokeapi.co/api/v2/pokemon-species/' +
+			removePokemonFormName(formatCode(q))
+	)
 		.then((res) => {
 			if (res.status == 404)
 				$('#loader').html('<h3>Pokemon Not Found</h3>');
@@ -218,7 +301,7 @@ $(() => {
 						const evo = evoChain[idx];
 						fetch(
 							'https://pokeapi.co/api/v2/pokemon/' +
-								evo.species_name
+								addPokemonFormName(formatCode(evo.species_name))
 						)
 							.then((res) => res.json())
 							.then((data) => {
@@ -231,14 +314,16 @@ $(() => {
 										evoHTML += '<p>';
 										if (typeof evo[key] !== 'object') {
 											evoHTML +=
-												formatStr(key) +
+												formatDisplay(key) +
 												': ' +
-												formatStr(evo[key].toString());
+												formatDisplay(
+													evo[key].toString()
+												);
 										} else {
 											evoHTML +=
-												formatStr(key) +
+												formatDisplay(key) +
 												': ' +
-												formatStr(evo[key].name);
+												formatDisplay(evo[key].name);
 										}
 										evoHTML += '</p>';
 									}
@@ -254,19 +339,19 @@ $(() => {
 
 								$('#evolution-' + idx).append(
 									'<div class="row border-bottom">' +
-										'<div class="clickable-text col-6 row" tabindex="0" onclick="searchPokemon(\'' +
+										'<button class="clickable-text col-6 row" tabindex="0" onclick="searchPokemon(\'' +
 										data.name +
 										'\')">' +
 										'<div class="col-sm"> <p>#' +
 										data.id.toString().padStart(3, '0') +
 										' ' +
-										capitalize(data.name) +
+										formatDisplay(data.name) +
 										'</p><br>' +
 										typeHTML +
-										'</div><div class="col-sm"><img class="pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
-										padThreeZeroes(data.id) +
+										'</div><div class="col-sm"><img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+										data.id +
 										'.png"></div>' +
-										'</div><div class="col-6">' +
+										'</button><div class="col-6">' +
 										evoHTML +
 										'</div>' +
 										'</div>'
@@ -286,7 +371,9 @@ $(() => {
 					'<small>/255</small><br>'
 			);
 			$('#info-div-1').append(
-				'<hr>Growth Rate: ' + formatStr(data.growth_rate.name) + '<br>'
+				'<hr>Growth Rate: ' +
+					formatDisplay(data.growth_rate.name) +
+					'<br>'
 			);
 
 			// gender is "odds of being female in eighths, -1 for genderless"
@@ -315,19 +402,18 @@ $(() => {
 					'</small><br>'
 			);
 
-			$('#egg-group-div').append('Egg Groups: <ul>');
+			$('#egg-group-div').append('Egg Groups: <br>');
 			for (let i = 0; i < data.egg_groups.length; i++) {
 				$('#egg-group-div').append(
-					'<li tabindex="0" onclick="openEggGroup(\'' +
+					'<button tabindex="0" onclick="openEggGroup(\'' +
 						data.egg_groups[i].name +
 						"','" +
 						data.egg_groups[i].url +
 						'\')" class="clickable-text">' +
-						capitalize(data.egg_groups[i].name) +
-						'</li>'
+						formatDisplay(data.egg_groups[i].name) +
+						'</button>'
 				);
 			}
-			$('#egg-group-div').append('</ul>');
 
 			let idx = 0;
 			for (; idx < data.flavor_text_entries.length; idx++) {
@@ -339,13 +425,13 @@ $(() => {
 			);
 		});
 
-	fetch('https://pokeapi.co/api/v2/pokemon/' + q)
+	fetch('https://pokeapi.co/api/v2/pokemon/' + formatCode(q))
 		.then((res) => res.json())
 		.then((data) => {
 			checkLoadCount();
 			console.log(data);
 
-			document.title = 'Pokedex - ' + capitalize(data.name);
+			document.title = 'Pokedex - ' + formatDisplay(data.name);
 
 			$('#damage-taken-div-container').prepend(
 				'<hr><h3>Damage Taken</h3>'
@@ -366,35 +452,33 @@ $(() => {
 			$('#moves-div-container').prepend('<hr><h3>Moves</h3>');
 			for (move of data.moves) {
 				// console.log(move.version_group_details[0].level_learned_at)
-				let moveName = formatStr(move.move.name);
+				let moveName = formatDisplay(move.move.name);
 				$('#moves-div').append(
-					'<div tabindex="0" onclick="openMove(\'' +
+					'<button tabindex="0" onclick="openMove(\'' +
 						moveName +
 						"','" +
 						move.move.url +
 						'\')" class="clickable-text col-6 col-sm-4 col-md-3 col-lg-2">' +
 						moveName +
-						'</div>'
+						'</button>'
 				);
 			}
 
 			$('#links-div').append(
 				`<hr>
-                <a href="https://pokemondb.net/pokedex/${formatPokemonName(
-					data.name
-				)}" target="_blank">pokemondb.net</a>`
+                <a href="https://pokemondb.net/pokedex/${data.name}" target="_blank">pokemondb.net</a>`
 			);
 
 			$('#img-div').append(
-				'<img class="main pokemon-img" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/' +
-					padThreeZeroes(data.id) +
+				'<img class="main pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+					data.id +
 					'.png">'
 			);
 			$('#header-div').append(
 				'<h3><small>#' +
 					data.id.toString().padStart(3, '0') +
 					' &mdash; </small> ' +
-					capitalize(data.name) +
+					formatDisplay(data.name) +
 					'</h3>'
 			);
 
@@ -420,7 +504,7 @@ $(() => {
 				totalStats += currentStat;
 				$('#' + data.stats[stat].stat.name + '-div').append(
 					'' +
-						formatStr(data.stats[stat].stat.name) +
+						formatDisplay(data.stats[stat].stat.name) +
 						': ' +
 						currentStat +
 						''
@@ -433,7 +517,7 @@ $(() => {
 						';"></div>'
 				);
 				if (data.stats[stat].effort != 0) {
-					EVStat = formatStr(data.stats[stat].stat.name);
+					EVStat = formatDisplay(data.stats[stat].stat.name);
 					EVVal = data.stats[stat].effort;
 				}
 				$(`#stat${stat}`).animate({ width: 1.5 * currentStat + 'px' });
@@ -447,23 +531,23 @@ $(() => {
 					'<br><hr class="mobile-only">'
 			);
 
-			$('#ability-div').append('Abilities: <ul>');
+			$('#ability-div').append('Abilities: <br>');
 			for (ability in data.abilities) {
-				let abilityName = formatStr(
+				let abilityName = formatDisplay(
 					data.abilities[ability].ability.name
 				);
 				$('#ability-div').append(
-					'<li tabindex="0" onclick="openAbility(\'' +
+					'<button tabindex="0" onclick="openAbility(\'' +
 						abilityName +
 						"','" +
 						data.abilities[ability].ability.url +
 						'\')" class="clickable-text">' +
 						abilityName +
 						(data.abilities[ability].is_hidden ? ' (hidden)' : '') +
-						'</li>'
+						'</button>'
 				);
 			}
-			$('#ability-div').append('</ul><hr>');
+			$('#ability-div').append('<hr>');
 
 			$('#height-weight-div').append(
 				'Weight: ' + data.weight / 10 + ' kg<br>'
@@ -558,7 +642,7 @@ function openMove(moveName, moveURL) {
 					' &nbsp; <img src="img/move/' +
 					data.damage_class.name +
 					'.png">' +
-					capitalize(data.damage_class.name) +
+					formatDisplay(data.damage_class.name) +
 					'<div class="larger-text"><br><b>Power:</b> ' +
 					checkNull(data.power) +
 					'<br><b>Accuracy:</b> ' +
@@ -570,7 +654,7 @@ function openMove(moveName, moveURL) {
 					data.priority +
 					// '<br>Stat Changes: ' + data.stat_changes +
 					'<br><b>Target:</b> ' +
-					formatStr(data.target.name) +
+					formatDisplay(data.target.name) +
 					'<hr><b>Effect:</b> ' +
 					data.effect_entries[0].effect
 						.split('$effect_chance')
@@ -598,7 +682,7 @@ function openAbility(abilityName, abilityURL) {
 }
 
 function openEggGroup(eggGroupName, eggGroupURL) {
-	$('.modal-title').html(capitalize(eggGroupName));
+	$('.modal-title').html(formatDisplay(eggGroupName));
 	$('.modal-body').html(
 		'<div class="text-center"><i class="fas fa-spinner fa-2x fa-spin"></i></div>'
 	);
@@ -612,13 +696,13 @@ function openEggGroup(eggGroupName, eggGroupURL) {
 			let html = '';
 			for (let i = 0; i < data.pokemon_species.length; i++) {
 				console.log();
-				const name = capitalize(data.pokemon_species[i].name);
+				const name = data.pokemon_species[i].name;
 				html +=
-					'<div class="clickable-text" onclick="searchPokemon(\'' +
+					'<button class="clickable-text" onclick="searchPokemon(\'' +
 					name +
 					'\')">' +
-					name +
-					'</div>';
+					formatDisplay(name) +
+					'</button>';
 			}
 			$('.modal-body').html(html);
 		});
@@ -629,18 +713,16 @@ const getStatColor = (stat) => {
 	return `rgb(${n}, ${n}, ${n})`;
 };
 
-// const formatStr = str => capitalizeEach(str.replace('-',' ').replace('_',' ') )
-const formatStr = (str) =>
-	capitalizeEach(str.split('-').join(' ').split('_').join(' '));
-const capitalizeEach = (str) => {
-	let rtn = '',
-		words = str.split(' ');
-	for (word in words) rtn += capitalize(words[word]) + ' ';
-	return rtn.slice(0, -1);
-};
-const capitalize = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
+function formatDisplay(str) {
+	return str
+		.replace(/\b\w/g, (match) => match.toUpperCase())
+		.replace(/-/g, ' ')
+		.replace(/_/g, ' ');
+}
 
-const padThreeZeroes = (str) => ('00' + str).slice(-3);
+function formatCode(str) {
+	return str.toLowerCase().replace(/\s+/g, '-');
+}
 
 const checkNull = (x) => (x ? x : 'N/A');
 
@@ -704,7 +786,9 @@ function makeTypeAhead() {
 		},
 		{
 			name: 'Pokemon',
-			source: substringMatcher(pokemonNames),
+			source: substringMatcher(
+				pokemonNames.map((mon) => formatDisplay(mon))
+			),
 		}
 	);
 

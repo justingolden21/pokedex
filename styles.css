@@ -21,6 +21,14 @@ img {
 	user-drag: none;
 }
 
+/* Reset button css */
+button {
+	margin: 0;
+	padding: 0;
+	border: none;
+	background-color: transparent;
+}
+
 li {
 	list-style: none;
 }
@@ -62,7 +70,11 @@ h3 {
 }
 
 .pokemon-img {
-	width: 120px;
+	image-rendering: pixelated;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: crisp-edges;
+
+	width: 96px;
 }
 
 .container {
@@ -128,6 +140,12 @@ a:hover {
 	color: #333;
 }
 
+.navbar {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
 .navbar a,
 .navbar a:hover {
 	color: #fff;
@@ -176,6 +194,6 @@ td {
 		margin-top: 32px;
 	}
 	.main.pokemon-img {
-		width: 240px;
+		width: 192px;
 	}
 }
