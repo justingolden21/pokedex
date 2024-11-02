@@ -152,8 +152,8 @@ $(() => {
 					html += `<button class="col-6 col-md-4 col-lg-3 clickable-text" onclick="searchPokemon('${
 						pokemonNames[idx]
 					}')">
-						<img width="48px" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png">
-                          
+						<img width="96px" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png">
+						<br>
                         #${id.padStart(3, '0')}
                             ${formatDisplay(pokemonNames[idx])}
                         </button>`;
